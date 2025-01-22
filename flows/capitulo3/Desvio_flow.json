@@ -1,0 +1,106 @@
+[
+    {
+        "id": "e616ea337ea98ce4",
+        "type": "tab",
+        "label": "Desvio",
+        "disabled": false,
+        "info": "Este fluxo simples utiliza os nós:\r\n - inject;\r\n - switch; e \r\n - debug.\r\nO nó inject envia um _timestamp_ ao nó \r\nswitch, cuja payload é um número inteiro, \r\navaliado como par ou ímpar pelas regras\r\ndefinidas no nó switch, desviando as \r\nmensagens pares para o nó debug **Par** e \r\nas ímpares para o nó debug **Ímpar**.\r\n",
+        "env": []
+    },
+    {
+        "id": "71a2f64991bdc3ec",
+        "type": "debug",
+        "z": "e616ea337ea98ce4",
+        "name": "Ímpar",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c791daa55a8880e0",
+        "type": "debug",
+        "z": "e616ea337ea98ce4",
+        "name": "Par",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "58ed3c949aba0176",
+        "type": "inject",
+        "z": "e616ea337ea98ce4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "486151018c63ce12"
+            ]
+        ]
+    },
+    {
+        "id": "486151018c63ce12",
+        "type": "switch",
+        "z": "e616ea337ea98ce4",
+        "name": "Ímpar/Par",
+        "property": "payload % 2",
+        "propertyType": "jsonata",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "71a2f64991bdc3ec"
+            ],
+            [
+                "c791daa55a8880e0"
+            ]
+        ]
+    }
+]

@@ -1,0 +1,84 @@
+[
+    {
+        "id": "dc9ffc8680dad410",
+        "type": "tab",
+        "label": "Monitor",
+        "disabled": false,
+        "info": "Estes dois fluxos simples mostram o \r\nfuncionamento do nó watch. Combinam \r\nos nós:\r\n - inject;\r\n - file out;\r\n - watch; e \r\n - debug.\r\n \r\n Quando o nó inject é acionado, faz com \r\n que o nó file out adicione uma linha ao \r\n arquivo alvo.txt, monitorado pelo \r\n nó watch, cujas informações obtidas são \r\n exibidas pelo nó debug.\r\nO nó watch também observa alterações em \r\num diretório log.",
+        "env": []
+    },
+    {
+        "id": "11eeaf3d82c1b39d",
+        "type": "watch",
+        "z": "dc9ffc8680dad410",
+        "name": "Monitor",
+        "files": "flows\\capitulo3\\alvo.txt, log",
+        "recursive": "",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "d01557ac5cc78f9a"
+            ]
+        ]
+    },
+    {
+        "id": "d6d88ff3d8b9fabb",
+        "type": "inject",
+        "z": "dc9ffc8680dad410",
+        "name": "+ Registro",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":1,\"content\":\"algum dado\"}",
+        "payloadType": "json",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "09295d42df5672c6"
+            ]
+        ]
+    },
+    {
+        "id": "09295d42df5672c6",
+        "type": "file",
+        "z": "dc9ffc8680dad410",
+        "name": "alvo.txt",
+        "filename": "flows\\\\capitulo3\\alvo.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 340,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d01557ac5cc78f9a",
+        "type": "debug",
+        "z": "dc9ffc8680dad410",
+        "name": "Saída Monitor",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "event",
+        "targetType": "msg",
+        "statusVal": "size",
+        "statusType": "msg",
+        "x": 360,
+        "y": 140,
+        "wires": []
+    }
+]
