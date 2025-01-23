@@ -1,0 +1,129 @@
+[
+    {
+        "id": "b802a33d35fda997",
+        "type": "tab",
+        "label": "Pessoas",
+        "disabled": false,
+        "info": "Fluxo que exemplifica o uso do nó csv com \r\nuso dos nós:\r\n - watch,\r\n - file_in,\r\n - switch,\r\n  - csv e \r\n  - debug.\r\n\r\nO nó watch monitora um arquivo, cujo\r\nconteúdo está no formato CSV. Quando \r\no arquivo é atualizado, o nó switch \r\nenvia mensagem para o nó file_in, que \r\nlê seu conteúdo e produz uma mensagem \r\npor linha. Cada mensagem é processada \r\npelo nó csv que converte o texto da \r\nmensagem num objeto JSON.\r\nOs nós debug permitem visualizar o evento \r\nocorrido no arquivo e os objetos JSON \r\nproduzidos.\r\n",
+        "env": []
+    },
+    {
+        "id": "1e7a00185ecfd394",
+        "type": "watch",
+        "z": "b802a33d35fda997",
+        "name": "",
+        "files": "flows/capitulo4/pessoas.csv",
+        "recursive": "",
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "85ef1f7bb2389913",
+                "467846d0e1bd770d"
+            ]
+        ]
+    },
+    {
+        "id": "b3e4b2d6a99f5ecd",
+        "type": "file in",
+        "z": "b802a33d35fda997",
+        "name": "",
+        "filename": "flows/capitulo4/pessoas.csv",
+        "filenameType": "str",
+        "format": "lines",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 200,
+        "y": 160,
+        "wires": [
+            [
+                "ad89bfed857189b4"
+            ]
+        ]
+    },
+    {
+        "id": "ad89bfed857189b4",
+        "type": "csv",
+        "z": "b802a33d35fda997",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\r\\n",
+        "temp": "nome, codigo, cidade",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "37a24a8f453eb34d"
+            ]
+        ]
+    },
+    {
+        "id": "37a24a8f453eb34d",
+        "type": "debug",
+        "z": "b802a33d35fda997",
+        "name": "Saída",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "467846d0e1bd770d",
+        "type": "switch",
+        "z": "b802a33d35fda997",
+        "name": "",
+        "property": "event",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "update",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "b3e4b2d6a99f5ecd"
+            ]
+        ]
+    },
+    {
+        "id": "85ef1f7bb2389913",
+        "type": "debug",
+        "z": "b802a33d35fda997",
+        "name": "Evento",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "event",
+        "targetType": "msg",
+        "statusVal": "event",
+        "statusType": "auto",
+        "x": 580,
+        "y": 60,
+        "wires": []
+    }
+]

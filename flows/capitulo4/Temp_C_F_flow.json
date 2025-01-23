@@ -1,0 +1,120 @@
+[
+    {
+        "id": "23bc4f8d9481d6eb",
+        "type": "tab",
+        "label": "Temp_C_F",
+        "disabled": false,
+        "info": "Fluxo que tem como objetivo efetuar a \r\ngeração de uma série de dados de \r\ntemperatura nas escalas Celsius e \r\nFahrenheit.\r\nAs temperaturas geradas ficam restritas \r\nao intervalo de [-5, 60]°C, com variação \r\nmáxima de +/- 2.5°C entre dois pontos \r\nda série.",
+        "env": []
+    },
+    {
+        "id": "c54816b28510a264",
+        "type": "comment",
+        "z": "23bc4f8d9481d6eb",
+        "name": "Geração de temperaturas",
+        "info": "As temperaturas geradas por este fluxo \nficam restritas ao intervalo de [-5, 60]°C, \ncom variação máxima de +/- 5°C entre dois \npontos da série.",
+        "x": 370,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "21742592d2287658",
+        "type": "inject",
+        "z": "23bc4f8d9481d6eb",
+        "name": "Timer 1min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "05c79ecf49771b3a"
+            ]
+        ]
+    },
+    {
+        "id": "05c79ecf49771b3a",
+        "type": "function",
+        "z": "23bc4f8d9481d6eb",
+        "name": "Sensor Virtual [temperatura|°C]",
+        "func": "var min = context.get('temp_min');\nvar max = context.get('temp_max');\nvar delta = context.get('temp_var');\nvar last = context.get('temp_last');\nvar temp = 0;\nif (last == null) {\n    temp = min + Math.random() * (max - min);\n} else {\n    do {\n        temp = last - delta + Math.random() * delta * 2;\n    } while (temp < min || temp > max);\n}\ncontext.set('temp_last', temp);\nmsg.payload = temp;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "//O código adicionado aqui será executado uma vez\n// sempre que o nó for iniciado.\ncontext.set('temp_min', -5);\ncontext.set('temp_max', 60);\ncontext.set('temp_var', 5);\ncontext.set('temp_last', null);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 120,
+        "wires": [
+            [
+                "a7714d0a2d35ec28",
+                "6584960023852965"
+            ]
+        ]
+    },
+    {
+        "id": "a7714d0a2d35ec28",
+        "type": "range",
+        "z": "23bc4f8d9481d6eb",
+        "minin": "-10",
+        "maxin": "60",
+        "minout": "14",
+        "maxout": "140",
+        "action": "scale",
+        "round": false,
+        "property": "payload",
+        "name": "Celsius p/ Fahrenheit",
+        "x": 380,
+        "y": 180,
+        "wires": [
+            [
+                "0927a93bf84aabd0"
+            ]
+        ]
+    },
+    {
+        "id": "6584960023852965",
+        "type": "debug",
+        "z": "23bc4f8d9481d6eb",
+        "name": "temperatura °C",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "0927a93bf84aabd0",
+        "type": "debug",
+        "z": "23bc4f8d9481d6eb",
+        "name": "temperatura F",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 180,
+        "wires": []
+    }
+]

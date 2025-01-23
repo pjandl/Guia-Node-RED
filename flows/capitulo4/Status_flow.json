@@ -1,0 +1,142 @@
+[
+    {
+        "id": "18afa33388858253",
+        "type": "tab",
+        "label": "Status",
+        "disabled": false,
+        "info": "Fluxo trivial que mostra o comportaento \r\ndo nó status. Utiliza os nós:\r\n - inject;\r\n - debug; e\r\n - status.\r\n\r\n Os nós debug injetam uma mensagem e \r\n metadados de status, um indicando \r\n estado 'OK' e outro 'Erro'.\r\n Enquanto o nó debug 'Saída' sempre \r\n exibe o payload na mensagem, o nó de \r\n status captura as alteração de estado,\r\n enviando-as para o debug 'Status'.",
+        "env": []
+    },
+    {
+        "id": "8822f816b4798364",
+        "type": "junction",
+        "z": "18afa33388858253",
+        "x": 260,
+        "y": 60,
+        "wires": [
+            [
+                "75eaadfb.bed014"
+            ]
+        ]
+    },
+    {
+        "id": "cf27351f.392d88",
+        "type": "inject",
+        "z": "18afa33388858253",
+        "name": "Positivo:-)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "status.text",
+                "v": "OK",
+                "vt": "str"
+            },
+            {
+                "p": "status.source.id",
+                "v": "_msgid",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Positivo",
+        "payloadType": "str",
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "8822f816b4798364"
+            ]
+        ]
+    },
+    {
+        "id": "cd1ac74a.a149a8",
+        "type": "debug",
+        "z": "18afa33388858253",
+        "name": "Status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 470,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "75fefe32.3e47d",
+        "type": "status",
+        "z": "18afa33388858253",
+        "name": "",
+        "scope": [
+            "75eaadfb.bed014"
+        ],
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "cd1ac74a.a149a8"
+            ]
+        ]
+    },
+    {
+        "id": "75eaadfb.bed014",
+        "type": "debug",
+        "z": "18afa33388858253",
+        "name": "Saída",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 470,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "140043c209b52e8f",
+        "type": "inject",
+        "z": "18afa33388858253",
+        "name": "Negativo:-(",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "status.text",
+                "v": "ERRO",
+                "vt": "str"
+            },
+            {
+                "p": "status.source.id",
+                "v": "_msgid",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Negativo",
+        "payloadType": "str",
+        "x": 140,
+        "y": 120,
+        "wires": [
+            [
+                "8822f816b4798364"
+            ]
+        ]
+    }
+]
