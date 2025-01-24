@@ -1,0 +1,126 @@
+[
+    {
+        "id": "21ab46d4cb3d84cf",
+        "type": "tab",
+        "label": "MQTT In/Out",
+        "disabled": false,
+        "info": "Fluxo simples para mostrar a integração\r\ndo Node-RED com o broker MQTT mosquitto\r\n(ou outro desejado).\r\nEmprega os nós:\r\n - inject;\r\n - mqtt out;\r\n - mqtt in; e \r\n - debug.\r\n\r\nEste fluxo efetua a publicação automática \r\nde mensagens no tópico jandl/teste do \r\nbroker selecionado e também sua recepção \r\ne visualização.\r\n",
+        "env": []
+    },
+    {
+        "id": "b640c770d1ed548b",
+        "type": "debug",
+        "z": "21ab46d4cb3d84cf",
+        "name": "Saída",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "642128d890f7c286",
+        "type": "inject",
+        "z": "21ab46d4cb3d84cf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "jandl/teste",
+        "payload": "{ \"op\": 114, \"nome\": \"Fatec Jundiaí\" }",
+        "payloadType": "json",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "33d3a1020d984e07"
+            ]
+        ]
+    },
+    {
+        "id": "33d3a1020d984e07",
+        "type": "mqtt out",
+        "z": "21ab46d4cb3d84cf",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f9c754fc6ec997d5",
+        "x": 370,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "0ace2542d32e625c",
+        "type": "mqtt in",
+        "z": "21ab46d4cb3d84cf",
+        "name": "",
+        "topic": "jandl/teste",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f9c754fc6ec997d5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 140,
+        "wires": [
+            [
+                "b640c770d1ed548b"
+            ]
+        ]
+    },
+    {
+        "id": "f9c754fc6ec997d5",
+        "type": "mqtt-broker",
+        "name": "mosquitto [localhost]",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

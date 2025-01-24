@@ -1,0 +1,108 @@
+[
+    {
+        "id": "e3dc40fed86c9684",
+        "type": "tab",
+        "label": "Envio TCP",
+        "disabled": false,
+        "info": "Este fluxo mostra o uso do nó tcp_out no \r\nenvio de dados direto para um programa \r\nexterno. Utiliza os nós inject, function, \r\njson, debug e tcp_out.\r\n\r\nO nó inject funciona como um timer, \r\nenviando um timestamp e o nome de um \r\ntópico a cada minuto. O nó function \r\norganiza um objeto JSON contendo tópico, \r\ntimestamp, a contagem dos dados e um \r\nvalor aleatório.\r\n\r\nO nó debug mostra o objeto JSON organizado \r\ne o nó json o converte como uma string, \r\nenviada ao programa externo por meio do \r\nnó tcp_out.",
+        "env": []
+    },
+    {
+        "id": "cb2263801bbaa24f",
+        "type": "inject",
+        "z": "e3dc40fed86c9684",
+        "name": "Timer",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "sensor",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "2383bac50fcca37e"
+            ]
+        ]
+    },
+    {
+        "id": "2383bac50fcca37e",
+        "type": "function",
+        "z": "e3dc40fed86c9684",
+        "name": "Dados",
+        "func": "var cont = context.get(\"cont\") + 1;\ncontext.set(\"cont\", cont);\nvar valor = Math.random() * 10;\nmsg.payload = {\n    \"topic\": msg.topic,\n    \"timestamp\": msg.payload,\n    \"cont\": cont,\n    \"valor\": valor\n};\nnode.status({\"fill\":\"blue\", \"shape\":\"dot\", \"text\":String(cont)});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "//O código adicionado aqui será executado uma vez\n// sempre que o nó for iniciado.\ncontext.set(\"cont\", 0);",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 80,
+        "wires": [
+            [
+                "bbc60672ec2b976a",
+                "7fa161df11b6e560"
+            ]
+        ]
+    },
+    {
+        "id": "5c76b633f0f69b55",
+        "type": "tcp out",
+        "z": "e3dc40fed86c9684",
+        "name": "",
+        "host": "localhost",
+        "port": "6468",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 530,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "bbc60672ec2b976a",
+        "type": "json",
+        "z": "e3dc40fed86c9684",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "5c76b633f0f69b55"
+            ]
+        ]
+    },
+    {
+        "id": "7fa161df11b6e560",
+        "type": "debug",
+        "z": "e3dc40fed86c9684",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 80,
+        "wires": []
+    }
+]
