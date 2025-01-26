@@ -1,0 +1,17 @@
+{
+    "group": {
+        "hide": [
+            "Tab_1_Grupo_3"
+        ],
+        "show": [
+            "Tab_1_Grupo_1"
+        ],
+        "close": [
+            "Tab_1_Grupo_2"
+        ],
+        "open": [
+            "Tab_1_Grupo_1"
+        ],
+        "focus": true
+    }
+}

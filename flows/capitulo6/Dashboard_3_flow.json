@@ -1,0 +1,257 @@
+[
+    {
+        "id": "12461b8644d6e12f",
+        "type": "tab",
+        "label": "Dashboard 3",
+        "disabled": false,
+        "info": "Demonstração de uso do nó chart, configurado \r\ncomo gráfico de linha, exibindo três séries \r\nde dados.\r\n\r\nUm nó inject funciona como timer, enviando \r\num timestamp a cada 10 segundos a um nó \r\nfunction, o qual function simula a geração de \r\nvalores de pressão colocados no payload.\r\nTais dados comporão as três séries de dados \r\nexibidas pelo chart, pois são acompanhados \r\nda propriedade topic que identifica a série.\r\n\r\nAlém disso, o function mantém os valores \r\nmínimo, máximo e médio dos dados de pressão gerados, enviando-os \r\ncomo propriedades distintas na mensagem, \r\npossibilitando seu uso pelos nós gauge e \r\ntext adicionados à mesma tab do nó chart.\r\n\r\nO segundo nó inject envia um array vazio ao \r\nnó function, que reinicia as variáveis mantidas \r\npara os valores mínimo, máximo e médio da \r\npressão; encaminhando tal array ao nó chart, \r\nque por sua vez remove todos os seus dados \r\ne reinicia a apresentação do gráfico.",
+        "env": []
+    },
+    {
+        "id": "c16101dd0bb110ac",
+        "type": "function",
+        "z": "12461b8644d6e12f",
+        "name": "Prensas",
+        "func": "// Verifica se payload é array vazio para reiniciar variáveis\nif (Array.isArray(msg.payload) && msg.payload.length === 0) {\n    context.set(\"minima\", 130);\n    context.set(\"maxima\", 80);\n    context.set(\"acumulado\", 0);\n    context.set(\"cont\", 0);\n    return msg;\n}\nmsg.timestamp = msg.payload;\nmsg.payload = (90 + Math.random() * 25);\n// determina pressao mínima\nmsg.minima = context.get(\"minima\")\nif (msg.payload < msg.minima) {\n    context.set(\"minima\", msg.payload);\n    msg.minima = msg.payload;\n}\n// determina pressao máxima\nmsg.maxima = context.get(\"maxima\")\nif (msg.payload > msg.maxima) {\n    context.set(\"maxima\", msg.payload);\n    msg.maxima = msg.payload;\n}\n// calcula acumulado e média\nlet cont = context.get(\"cont\") + 1;\ncontext.set(\"cont\", cont);\nlet acum = context.get(\"acumulado\") + msg.payload;\ncontext.set(\"acumulado\", acum);\nmsg.media = acum / cont;\n// seleciona tópico de publicação\nlet n = Math.ceil(Math.random() * 3);\nmsg.topic = \"Pressão#\" + n.toString();\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "//O código adicionado aqui será executado uma vez\n// sempre que o nó for iniciado.\ncontext.set(\"minima\", 130);\ncontext.set(\"maxima\", 80);\ncontext.set(\"acumulado\", 0);\ncontext.set(\"cont\", 0);",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "1df503b981b7e1bc",
+                "f233e283f36e39f5",
+                "b11ce17e36e34b91",
+                "b7c989e29768916c"
+            ]
+        ]
+    },
+    {
+        "id": "30d0ab26ee3ebb88",
+        "type": "inject",
+        "z": "12461b8644d6e12f",
+        "name": "Timer",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "c16101dd0bb110ac"
+            ]
+        ]
+    },
+    {
+        "id": "1df503b981b7e1bc",
+        "type": "ui_chart",
+        "z": "12461b8644d6e12f",
+        "name": "",
+        "group": "87bc7583e0769ad0",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "label": "Prensas",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "[Sem dados]",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 560,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f233e283f36e39f5",
+        "type": "ui_text",
+        "z": "12461b8644d6e12f",
+        "group": "4061e9856b92adb5",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Pressão Média",
+        "format": "{{msg.media | number:3}} MPa",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 580,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b11ce17e36e34b91",
+        "type": "ui_gauge",
+        "z": "12461b8644d6e12f",
+        "name": "",
+        "group": "a0951d3b78eb33ad",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Pressão Mínima",
+        "label": "MPa",
+        "format": "{{msg.minima | number:2}}",
+        "min": "80",
+        "max": "120",
+        "colors": [
+            "#dcdc00",
+            "#3cdc00",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 580,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b7c989e29768916c",
+        "type": "ui_gauge",
+        "z": "12461b8644d6e12f",
+        "name": "",
+        "group": "dca81303f1f4b367",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Pressão Máxima",
+        "label": "MPa",
+        "format": "{{msg.maxima | number:2}}",
+        "min": "80",
+        "max": "120",
+        "colors": [
+            "#dcdc00",
+            "#3cdc00",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 590,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "002568c151ca1ae5",
+        "type": "inject",
+        "z": "12461b8644d6e12f",
+        "name": "Reset",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[ ]",
+        "payloadType": "json",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "c16101dd0bb110ac"
+            ]
+        ]
+    },
+    {
+        "id": "87bc7583e0769ad0",
+        "type": "ui_group",
+        "name": "Gráfico",
+        "tab": "10a07e00704e0631",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4061e9856b92adb5",
+        "type": "ui_group",
+        "name": "PMed",
+        "tab": "10a07e00704e0631",
+        "order": 3,
+        "disp": true,
+        "width": "4",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "a0951d3b78eb33ad",
+        "type": "ui_group",
+        "name": "PMin",
+        "tab": "10a07e00704e0631",
+        "order": 2,
+        "disp": true,
+        "width": "4",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "dca81303f1f4b367",
+        "type": "ui_group",
+        "name": "PMax",
+        "tab": "10a07e00704e0631",
+        "order": 4,
+        "disp": true,
+        "width": "4",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "10a07e00704e0631",
+        "type": "ui_tab",
+        "name": "GNR 3",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]

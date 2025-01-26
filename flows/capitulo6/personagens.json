@@ -1,0 +1,27 @@
+[
+    {
+        "p": "Capitão América",
+        "a": 1941,
+        "c": "Joe Simon, Jack Kirby"
+    },
+    {
+        "p": "Homem-Aranha",
+        "a": 1962,
+        "c": "Stan Lee, Steve Ditko"
+    },
+    {
+        "p": "Thor",
+        "a": 1962,
+        "c": "Stan Lee, Larry Lieber, Jack Kirby"
+    },
+    {
+        "p": "Hulk",
+        "a": 1962,
+        "c": "Stan Lee, Jack Kirby"
+    },
+    {
+        "p": "Homem de Ferro",
+        "a": 1963,
+        "c": "Stan Lee, Larry Lieber, Don Heck, Jack Kirby"
+    }
+]

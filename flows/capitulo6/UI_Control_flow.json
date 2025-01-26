@@ -1,0 +1,498 @@
+[
+    {
+        "id": "1be7ec0930398a17",
+        "type": "tab",
+        "label": "UI Control",
+        "disabled": false,
+        "info": "Fluxo que mostra a aplicação do nó ui_control\r\nno controle da visualização de abas e grupos \r\ndo dashboard.",
+        "env": []
+    },
+    {
+        "id": "b83041931f0b4fda",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"tab\":\"GNR 8\"}",
+        "payloadType": "json",
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "6035b2fd35f6dd27"
+            ]
+        ]
+    },
+    {
+        "id": "bce8c6aa46b4fa29",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Formulário",
+        "payloadType": "str",
+        "x": 100,
+        "y": 160,
+        "wires": [
+            [
+                "6035b2fd35f6dd27"
+            ]
+        ]
+    },
+    {
+        "id": "fbdfeb0ada44a784",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"tab\": \"-1\"}",
+        "payloadType": "json",
+        "x": 100,
+        "y": 200,
+        "wires": [
+            [
+                "6035b2fd35f6dd27"
+            ]
+        ]
+    },
+    {
+        "id": "cfd1e52f3d20d339",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "\"+1\"",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "+1",
+        "payloadType": "str",
+        "x": 90,
+        "y": 80,
+        "wires": [
+            [
+                "6035b2fd35f6dd27"
+            ]
+        ]
+    },
+    {
+        "id": "09c277e2c629a904",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Abas Pares",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"tabs\":{\"show\":[\"GNR 8\",\"GNR 10\",\"Formulário\"],\"hide\":[\"GNR 7\",\"GNR 9\"],\"disable\":[\"GNR 11\"],\"enable\":[\"GNR 8\",\"GNR 10\",\"Formulário\"]},\"tab\":1}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "6035b2fd35f6dd27"
+            ]
+        ]
+    },
+    {
+        "id": "f014379b4e8f9e4e",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Hide Group T/P",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"tab\":\"GNR 11\",\"group\":{\"hide\":[\"GNR_11_Template/Paridade\"]}}",
+        "payloadType": "json",
+        "x": 440,
+        "y": 40,
+        "wires": [
+            [
+                "1de341cb13ae0b3f"
+            ]
+        ]
+    },
+    {
+        "id": "6006dde6c5c2d936",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Show Group T/P",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"tab\":\"GNR 11\",\"group\":{\"show\":[\"GNR_11_Template/Paridade\"],\"open\":[\"GNR_11_Template/Paridade\"],\"focus\":true}}",
+        "payloadType": "json",
+        "x": 440,
+        "y": 80,
+        "wires": [
+            [
+                "1de341cb13ae0b3f"
+            ]
+        ]
+    },
+    {
+        "id": "a4e3cf26eb89ca49",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Índice 1",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 90,
+        "y": 40,
+        "wires": [
+            [
+                "6035b2fd35f6dd27"
+            ]
+        ]
+    },
+    {
+        "id": "89a6fbe9fd0ab043",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Atualizar",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 100,
+        "y": 120,
+        "wires": [
+            [
+                "6035b2fd35f6dd27"
+            ]
+        ]
+    },
+    {
+        "id": "c5e06dbfbdd5da6f",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Abas Ímpares",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"tabs\":{\"hide\":[\"GNR 8\",\"GNR 10\",\"Formulário\"],\"show\":[\"GNR 7\",\"GNR 9\",\"GNR 11\"],\"disable\":[\"Formulário\"],\"enable\":[\"GNR 7\",\"GNR 9\",\"GNR 11\"]},\"tab\":0}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 320,
+        "wires": [
+            [
+                "6035b2fd35f6dd27"
+            ]
+        ]
+    },
+    {
+        "id": "3c5629ab619d38ca",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Hide Group T/T",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"tab\":\"GNR 11\",\"group\":{\"hide\":[\"GNR_11_Template/Tabela\"]}}",
+        "payloadType": "json",
+        "x": 440,
+        "y": 120,
+        "wires": [
+            [
+                "1de341cb13ae0b3f"
+            ]
+        ]
+    },
+    {
+        "id": "da375ed670418116",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Show Group T/T",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"tab\":\"GNR 11\",\"group\":{\"show\":[\"GNR_11_Template/Tabela\"],\"open\":[\"GNR_11_Template/Tabela\"],\"focus\":true}}",
+        "payloadType": "json",
+        "x": 440,
+        "y": 160,
+        "wires": [
+            [
+                "1de341cb13ae0b3f"
+            ]
+        ]
+    },
+    {
+        "id": "1de341cb13ae0b3f",
+        "type": "link out",
+        "z": "1be7ec0930398a17",
+        "name": "Hide/Show Out",
+        "mode": "link",
+        "links": [
+            "4eeb203b914a04e1"
+        ],
+        "x": 615,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "b2231830d99df820",
+        "type": "link out",
+        "z": "1be7ec0930398a17",
+        "name": "Open/Close Out",
+        "mode": "link",
+        "links": [
+            "4eeb203b914a04e1"
+        ],
+        "x": 615,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "6035b2fd35f6dd27",
+        "type": "link out",
+        "z": "1be7ec0930398a17",
+        "name": "Tab Out",
+        "mode": "link",
+        "links": [
+            "4eeb203b914a04e1"
+        ],
+        "x": 295,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "4eeb203b914a04e1",
+        "type": "link in",
+        "z": "1be7ec0930398a17",
+        "name": "UI Control In",
+        "links": [
+            "1de341cb13ae0b3f",
+            "b2231830d99df820",
+            "6035b2fd35f6dd27"
+        ],
+        "x": 655,
+        "y": 180,
+        "wires": [
+            [
+                "4bdd482d1c857ce4"
+            ]
+        ]
+    },
+    {
+        "id": "4bdd482d1c857ce4",
+        "type": "ui_ui_control",
+        "z": "1be7ec0930398a17",
+        "name": "",
+        "events": "all",
+        "x": 760,
+        "y": 180,
+        "wires": [
+            [
+                "846b67ebeff718b9"
+            ]
+        ]
+    },
+    {
+        "id": "54deaa82071e55f6",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Close Group T/P",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"group\":{\"close\":[\"GNR_11_Template/Paridade\"]}}",
+        "payloadType": "json",
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "b2231830d99df820"
+            ]
+        ]
+    },
+    {
+        "id": "af5ed409d93d62ce",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Open Group T/P",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"group\":{\"open\":\"GNR_11_Template/Paridade\",\"focus\":true}}",
+        "payloadType": "json",
+        "x": 440,
+        "y": 240,
+        "wires": [
+            [
+                "b2231830d99df820"
+            ]
+        ]
+    },
+    {
+        "id": "3171800d08f2abe5",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Close Group T/T",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"group\":{\"show\":[\"GNR_11_Template/Tabela\"],\"close\":\"GNR_11_Template/Tabela\"}}",
+        "payloadType": "json",
+        "x": 440,
+        "y": 280,
+        "wires": [
+            [
+                "b2231830d99df820"
+            ]
+        ]
+    },
+    {
+        "id": "a8607c00a47a737d",
+        "type": "inject",
+        "z": "1be7ec0930398a17",
+        "name": "Open Group T/T",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"group\":{\"show\":\"GNR_11_Template/Tabela\",\"open\":\"GNR_11_Template/Tabela\",\"focus\":true}}",
+        "payloadType": "json",
+        "x": 440,
+        "y": 320,
+        "wires": [
+            [
+                "b2231830d99df820"
+            ]
+        ]
+    },
+    {
+        "id": "846b67ebeff718b9",
+        "type": "debug",
+        "z": "1be7ec0930398a17",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 260,
+        "wires": []
+    }
+]

@@ -1,0 +1,128 @@
+[
+    {
+        "id": "ce870451efd5b104",
+        "type": "tab",
+        "label": "Seleção",
+        "disabled": false,
+        "info": "Fluxo que mostra uso simples do widget \r\ndropdown na apresentação de uma caixa de \r\nseleção na interface do usuário.\r\n\r\nO dropdown contém os itens 1, 10, 100 e \r\n100; além de permitir sua seleção múltipla.\r\n\r\nO inject envia um valor que não pertence \r\na lista do dropdown, fazendo que o \r\ncomponente sinalize tal erro e removendo \r\na seleção anterior.\r\n\r\nO widget text permite visualizar a \r\nseleção na interface do usuário.",
+        "env": []
+    },
+    {
+        "id": "fae1799ee5c6011e",
+        "type": "inject",
+        "z": "ce870451efd5b104",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "3",
+        "payloadType": "num",
+        "x": 210,
+        "y": 40,
+        "wires": [
+            [
+                "7d02ba3c757626e5"
+            ]
+        ]
+    },
+    {
+        "id": "7d02ba3c757626e5",
+        "type": "ui_dropdown",
+        "z": "ce870451efd5b104",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "place": "Potências de 10",
+        "group": "8d13fd694bccc5f8",
+        "order": 1,
+        "width": "5",
+        "height": "1",
+        "passthru": true,
+        "multiple": true,
+        "options": [
+            {
+                "label": "Um",
+                "value": 1,
+                "type": "num"
+            },
+            {
+                "label": "Dez",
+                "value": 10,
+                "type": "num"
+            },
+            {
+                "label": "Cem",
+                "value": 100,
+                "type": "num"
+            },
+            {
+                "label": "Mil",
+                "value": 1000,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 420,
+        "y": 40,
+        "wires": [
+            [
+                "e0e6063727bf6501"
+            ]
+        ]
+    },
+    {
+        "id": "e0e6063727bf6501",
+        "type": "ui_text",
+        "z": "ce870451efd5b104",
+        "group": "8d13fd694bccc5f8",
+        "order": 2,
+        "width": "5",
+        "height": "1",
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 630,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "8d13fd694bccc5f8",
+        "type": "ui_group",
+        "name": "Caixa de Seleção",
+        "tab": "628a3555bd02a576",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "628a3555bd02a576",
+        "type": "ui_tab",
+        "name": "GNR 8",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]
