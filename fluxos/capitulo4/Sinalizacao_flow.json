@@ -1,0 +1,122 @@
+[
+    {
+        "id": "74ccd59646017d37",
+        "type": "tab",
+        "label": "Sinalização",
+        "disabled": false,
+        "info": "Este fluxo mostra uma aplicação direta do \r\nnó catch e faz uso dos nós que seguem:\r\n - inject;\r\n - function;\r\n - catch e\r\n - debug.\r\n\r\n O nó inject simula o envio de uma \r\n medição de pressão entre os valores\r\n [45, 75] psi.\r\n\r\n O nó function recebe os valores de \r\n pressão, calculando sua média e também\r\n avaliando se está abaixo ou acima dos\r\n valores limite [52, 68]. Quando isso \r\n ocorre, lança um erro.\r\n\r\n Os erros lançados são capturados pelo nó \r\n catch.",
+        "env": []
+    },
+    {
+        "id": "9df3290f.c6d2e8",
+        "type": "inject",
+        "z": "74ccd59646017d37",
+        "name": "Pressão",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "45 + $random() * 30",
+        "payloadType": "jsonata",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "4812ce8de5117eed",
+                "96f1096b.2f82a8"
+            ]
+        ]
+    },
+    {
+        "id": "96f1096b.2f82a8",
+        "type": "debug",
+        "z": "74ccd59646017d37",
+        "name": "Pressão",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "$formatNumber(payload, '#.0000 psi')",
+        "targetType": "jsonata",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 600,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "f06a3fc9.6bab7",
+        "type": "debug",
+        "z": "74ccd59646017d37",
+        "name": "Aviso",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "4812ce8de5117eed",
+        "type": "function",
+        "z": "74ccd59646017d37",
+        "name": "Controle de Pressão",
+        "func": "let cont = context.get(\"cont\") + 1;\ncontext.set(\"cont\", cont);\nlet total = context.get(\"total\") + msg.payload;\ncontext.set(\"total\", total);\nif (msg.payload > 68) {\n    msg.error = { \"message\": \"Pressão Alta: \"\n        + msg.payload.toFixed(4) + ' psi' };\n    node.error(msg.error.message);\n} else if (msg.payload < 52) {\n    msg.error = { \"message\": \"Pressão Baixa: \"\n        + msg.payload.toFixed(4) + ' psi' };\n    node.error(msg.error.message, msg.error);\n}\nmsg.media = total / cont;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "//O código adicionado aqui será executado uma vez\n// sempre que o nó for iniciado.\ncontext.set(\"total\", 0);\ncontext.set(\"cont\", 0);",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 40,
+        "wires": [
+            [
+                "a7bb63d2eb19a316"
+            ]
+        ]
+    },
+    {
+        "id": "a7bb63d2eb19a316",
+        "type": "debug",
+        "z": "74ccd59646017d37",
+        "name": "Pressão Média",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "$formatNumber(media, '#.0000 psi')",
+        "targetType": "jsonata",
+        "statusVal": "media",
+        "statusType": "auto",
+        "x": 620,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "fa944ba7b0075414",
+        "type": "catch",
+        "z": "74ccd59646017d37",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "f06a3fc9.6bab7"
+            ]
+        ]
+    }
+]

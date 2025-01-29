@@ -1,0 +1,206 @@
+[
+    {
+        "id": "06a88f6ba97476db",
+        "type": "tab",
+        "label": "Gauge Demo",
+        "disabled": false,
+        "info": "Demostração simples das visualizações (tipos)\r\ndo nó gauge.\r\n\r\nCada gauge é adicionado a um grupo para\r\nfacilitar a apresentação em diferentes \r\ndispositivos.",
+        "env": []
+    },
+    {
+        "id": "ada692faabc1d2f8",
+        "type": "inject",
+        "z": "06a88f6ba97476db",
+        "name": "[0, 100)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "$random() * 100",
+        "payloadType": "jsonata",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "391db7e1f7930419",
+                "b6d161ded9f6e4e0",
+                "e120e39bf9dbeae1",
+                "f2cdb64d25e4981f"
+            ]
+        ]
+    },
+    {
+        "id": "391db7e1f7930419",
+        "type": "ui_gauge",
+        "z": "06a88f6ba97476db",
+        "name": "",
+        "group": "687c38c455544f7c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "unidade",
+        "format": "{{value| number:3}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 370,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b6d161ded9f6e4e0",
+        "type": "ui_gauge",
+        "z": "06a88f6ba97476db",
+        "name": "",
+        "group": "1c88785c9cc3c3ab",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "donut",
+        "label": "unidade",
+        "format": "{{payload | number:3}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#063cbc",
+            "#10da68",
+            "#ca3838"
+        ],
+        "seg1": "33",
+        "seg2": "66",
+        "diff": false,
+        "className": "",
+        "x": 370,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e120e39bf9dbeae1",
+        "type": "ui_gauge",
+        "z": "06a88f6ba97476db",
+        "name": "",
+        "group": "a1cdaafc6c1a594b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "compass",
+        "title": "compass",
+        "label": "unidade",
+        "format": "{{payload | number:3}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 380,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f2cdb64d25e4981f",
+        "type": "ui_gauge",
+        "z": "06a88f6ba97476db",
+        "name": "",
+        "group": "443498bd3ac1b0b9",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "level",
+        "label": "unidade",
+        "format": "{{payload | number:3}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 370,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "687c38c455544f7c",
+        "type": "ui_group",
+        "name": "Default 1",
+        "tab": "7e67355cc6bd2d1c",
+        "order": 1,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1c88785c9cc3c3ab",
+        "type": "ui_group",
+        "name": "Default 2",
+        "tab": "7e67355cc6bd2d1c",
+        "order": 2,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a1cdaafc6c1a594b",
+        "type": "ui_group",
+        "name": "Default 3",
+        "tab": "7e67355cc6bd2d1c",
+        "order": 3,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "443498bd3ac1b0b9",
+        "type": "ui_group",
+        "name": "Default 4",
+        "tab": "7e67355cc6bd2d1c",
+        "order": 4,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7e67355cc6bd2d1c",
+        "type": "ui_tab",
+        "name": "Gauge Demo",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

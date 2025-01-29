@@ -1,0 +1,86 @@
+[
+    {
+        "id": "4304c681b0f53d2b",
+        "type": "tab",
+        "label": "Configuração",
+        "disabled": false,
+        "info": "Este fluxo simples mostra uma aplicação \r\ndo nó yaml e emprega os nós que seguem:\r\n - inject,\r\n - file_in,\r\n - yaml e \r\n - debug.\r\n\r\nO nó inject simula o envio de um nome \r\nde arquivo de configuração, \r\narmazenado localmente no formato YAML, \r\npara o nó file_in, que efetua a leitura \r\ne envia o texto recuperado para o \r\nnó yaml, que efetua sua conversão em \r\num objeto JSON exibido pelo nó debug.",
+        "env": []
+    },
+    {
+        "id": "7613fa1a1ca3bd40",
+        "type": "inject",
+        "z": "4304c681b0f53d2b",
+        "name": "Nome do Arquivo",
+        "props": [
+            {
+                "p": "filename",
+                "v": "flows/capitulo4/node-red.yaml",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "7a684fa116d293c7"
+            ]
+        ]
+    },
+    {
+        "id": "7a684fa116d293c7",
+        "type": "file in",
+        "z": "4304c681b0f53d2b",
+        "name": "Leitor",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 250,
+        "y": 120,
+        "wires": [
+            [
+                "e950eb8f231893ed"
+            ]
+        ]
+    },
+    {
+        "id": "e950eb8f231893ed",
+        "type": "yaml",
+        "z": "4304c681b0f53d2b",
+        "property": "payload",
+        "name": "",
+        "x": 410,
+        "y": 120,
+        "wires": [
+            [
+                "20937a4d2fa3c1eb"
+            ]
+        ]
+    },
+    {
+        "id": "20937a4d2fa3c1eb",
+        "type": "debug",
+        "z": "4304c681b0f53d2b",
+        "name": "Saída",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 180,
+        "wires": []
+    }
+]

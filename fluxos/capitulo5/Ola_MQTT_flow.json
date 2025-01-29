@@ -1,0 +1,79 @@
+[
+    {
+        "id": "21ab46d4cb3d84cf",
+        "type": "tab",
+        "label": "Olá MQTT",
+        "disabled": false,
+        "info": "Fluxo simples para mostrar a integração\r\ndo Node-RED com o broker MQTT mosquitto\r\n(ou outro desejado).\r\nEmprega os nós:\r\n - mqtt in; e \r\n - debug.\r\n\r\nEste fluxo permite visualizar as \r\nmensagens enviadas ao tópico 'teste' do \r\nbroker selecionado.\r\n",
+        "env": []
+    },
+    {
+        "id": "d5924ce3d1d4cb84",
+        "type": "mqtt in",
+        "z": "21ab46d4cb3d84cf",
+        "name": "",
+        "topic": "teste",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f9c754fc6ec997d5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "b640c770d1ed548b"
+            ]
+        ]
+    },
+    {
+        "id": "b640c770d1ed548b",
+        "type": "debug",
+        "z": "21ab46d4cb3d84cf",
+        "name": "Saída",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "f9c754fc6ec997d5",
+        "type": "mqtt-broker",
+        "name": "mosquitto [localhost]",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

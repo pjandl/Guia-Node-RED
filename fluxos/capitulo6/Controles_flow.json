@@ -1,0 +1,252 @@
+[
+    {
+        "id": "61cea32ed919e176",
+        "type": "tab",
+        "label": "Controles",
+        "disabled": false,
+        "info": "Fluxo simples para demonstrar o uso do \r\nwidget slider conectado a widgets numeric \r\ne text, exibindo seu funcionamento \r\nintegrado e conveniente na interface \r\ngráfica.",
+        "env": []
+    },
+    {
+        "id": "5e36ce928eccbbdc",
+        "type": "ui_slider",
+        "z": "61cea32ed919e176",
+        "name": "",
+        "label": "slider",
+        "tooltip": "",
+        "group": "d3d9da75e5f30fe0",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "ba7be9f5a6d4f846",
+                "f31c46e5b82617a7"
+            ]
+        ]
+    },
+    {
+        "id": "f31c46e5b82617a7",
+        "type": "ui_numeric",
+        "z": "61cea32ed919e176",
+        "name": "",
+        "label": "numeric",
+        "tooltip": "",
+        "group": "d3d9da75e5f30fe0",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "x": 380,
+        "y": 100,
+        "wires": [
+            [
+                "86766f01a0c8c80a"
+            ]
+        ]
+    },
+    {
+        "id": "ba7be9f5a6d4f846",
+        "type": "ui_text",
+        "z": "61cea32ed919e176",
+        "group": "d3d9da75e5f30fe0",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Valor Ajustado 1",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 660,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c262f33ff81c653b",
+        "type": "link in",
+        "z": "61cea32ed919e176",
+        "name": "link in 1",
+        "links": [
+            "86766f01a0c8c80a"
+        ],
+        "x": 55,
+        "y": 60,
+        "wires": [
+            [
+                "5e36ce928eccbbdc"
+            ]
+        ]
+    },
+    {
+        "id": "86766f01a0c8c80a",
+        "type": "link out",
+        "z": "61cea32ed919e176",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "c262f33ff81c653b"
+        ],
+        "x": 495,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f61b5db8f80479b8",
+        "type": "ui_slider",
+        "z": "61cea32ed919e176",
+        "name": "",
+        "label": "slider",
+        "tooltip": "",
+        "group": "d6d56ae97d9cea59",
+        "order": 0,
+        "width": "3",
+        "height": "4",
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "100",
+        "max": "0",
+        "step": "10",
+        "className": "",
+        "x": 190,
+        "y": 140,
+        "wires": [
+            [
+                "f2c96652f5cf8e07",
+                "35e2e4e98f661e17"
+            ]
+        ]
+    },
+    {
+        "id": "35e2e4e98f661e17",
+        "type": "ui_numeric",
+        "z": "61cea32ed919e176",
+        "name": "",
+        "label": "numeric",
+        "tooltip": "",
+        "group": "d6d56ae97d9cea59",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}} %",
+        "min": "100",
+        "max": "0",
+        "step": "10",
+        "className": "",
+        "x": 380,
+        "y": 180,
+        "wires": [
+            [
+                "8a4cfb44c969067d"
+            ]
+        ]
+    },
+    {
+        "id": "f2c96652f5cf8e07",
+        "type": "ui_text",
+        "z": "61cea32ed919e176",
+        "group": "d6d56ae97d9cea59",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Valor Ajustado 2",
+        "format": "{{msg.payload}} %",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 660,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "bf67ae2dd930f0c9",
+        "type": "link in",
+        "z": "61cea32ed919e176",
+        "name": "link in 2",
+        "links": [
+            "8a4cfb44c969067d"
+        ],
+        "x": 55,
+        "y": 140,
+        "wires": [
+            [
+                "f61b5db8f80479b8"
+            ]
+        ]
+    },
+    {
+        "id": "8a4cfb44c969067d",
+        "type": "link out",
+        "z": "61cea32ed919e176",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "bf67ae2dd930f0c9"
+        ],
+        "x": 495,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d3d9da75e5f30fe0",
+        "type": "ui_group",
+        "name": "Controles 1",
+        "tab": "01c747f0584e01c4",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "d6d56ae97d9cea59",
+        "type": "ui_group",
+        "name": "Controles 2",
+        "tab": "01c747f0584e01c4",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "01c747f0584e01c4",
+        "type": "ui_tab",
+        "name": "GNR 7",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

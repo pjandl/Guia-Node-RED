@@ -1,0 +1,187 @@
+[
+    {
+        "id": "caef73fb3ba9f0c4",
+        "type": "tab",
+        "label": "Recepção TCP",
+        "disabled": false,
+        "info": "Este fluxo mostra o uso do nó tcp_in para \r\nreceber dados de programas externos.\r\n\r\nNo primeiro, o nó tcp_in está configurado \r\npara o modo de escuta, ouvindo a porta \r\n6468, na qual recebe dados de um programa \r\nque  envia uma string fixa, uma contagem de \r\nenvios e um número real aleatório. O buffer recebido é processado por um \r\nnó function, que o decompõe em seus \r\nelementos originais, exibidos por nós \r\ndebug.\r\n\r\nNo segundo, o nó tcp_in está configurado \r\npara o modo de conexão, conectando-se a um \r\nprograma em localhost e porta 6864, que \r\nretorna uma string contendo o horário atual e \r\ne uma saudação O buffer recebido é exibido \r\npor um nó debug.",
+        "env": []
+    },
+    {
+        "id": "3ccb32305fc43c75",
+        "type": "tcp in",
+        "z": "caef73fb3ba9f0c4",
+        "name": "",
+        "server": "server",
+        "host": "",
+        "port": "6468",
+        "datamode": "stream",
+        "datatype": "buffer",
+        "newline": "",
+        "topic": "",
+        "trim": false,
+        "base64": false,
+        "tls": "",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "784a6ea2d0dbfc84",
+                "1355e9cb4e0d9079"
+            ]
+        ]
+    },
+    {
+        "id": "02024986e41f8e47",
+        "type": "debug",
+        "z": "caef73fb3ba9f0c4",
+        "name": "texto",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 120,
+        "wires": [],
+        "icon": "node-red-dashboard/ui_text.png"
+    },
+    {
+        "id": "45558d8944363380",
+        "type": "debug",
+        "z": "caef73fb3ba9f0c4",
+        "name": "cont",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "cont",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 180,
+        "wires": [],
+        "icon": "font-awesome/fa-sort-numeric-asc"
+    },
+    {
+        "id": "784a6ea2d0dbfc84",
+        "type": "function",
+        "z": "caef73fb3ba9f0c4",
+        "name": "function 1",
+        "func": "var buffer = Buffer.from(msg.payload).toString();\nvar data = buffer.split(',');\nmsg.payload = data[0];\nmsg.cont = parseInt(data[1]);\nmsg.valor = parseFloat(data[2]);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "45558d8944363380",
+                "02024986e41f8e47",
+                "d7a5b6fd4b823b6b"
+            ]
+        ]
+    },
+    {
+        "id": "1355e9cb4e0d9079",
+        "type": "debug",
+        "z": "caef73fb3ba9f0c4",
+        "name": "buffer",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d7a5b6fd4b823b6b",
+        "type": "debug",
+        "z": "caef73fb3ba9f0c4",
+        "name": "valor",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "valor",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 240,
+        "wires": [],
+        "icon": "node-red-dashboard/ui_numeric.png"
+    },
+    {
+        "id": "306be2222067401f",
+        "type": "debug",
+        "z": "caef73fb3ba9f0c4",
+        "name": "saudação",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "8b4920203d6ee6be",
+        "type": "tcp in",
+        "z": "caef73fb3ba9f0c4",
+        "name": "",
+        "server": "client",
+        "host": "localhost",
+        "port": "6864",
+        "datamode": "stream",
+        "datatype": "buffer",
+        "newline": "",
+        "topic": "saudacao",
+        "trim": false,
+        "base64": false,
+        "tls": "",
+        "x": 150,
+        "y": 340,
+        "wires": [
+            [
+                "306be2222067401f"
+            ]
+        ]
+    },
+    {
+        "id": "7e7f3469ce1757e1",
+        "type": "comment",
+        "z": "caef73fb3ba9f0c4",
+        "name": "Modo conexão",
+        "info": "",
+        "x": 140,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e91d4f1f69bf8c3f",
+        "type": "comment",
+        "z": "caef73fb3ba9f0c4",
+        "name": "Modo escuta",
+        "info": "",
+        "x": 130,
+        "y": 20,
+        "wires": []
+    }
+]

@@ -1,0 +1,144 @@
+[
+    {
+        "id": "df70f5cac73f7b13",
+        "type": "tab",
+        "label": "Modelos 2",
+        "disabled": false,
+        "info": "Este fluxo mostra a aplicação do nó\r\ntemplate na criação de mensagens, \r\narquivos ou objetos.\r\nUtiliza os nós:\r\n - inject;\r\n  - template;\r\n  - file out; e\r\n  - debug.\r\nO nó inject envia uma mensagem contendo\r\ntrês campos (campo1, campo2 e campo3)\r\nque são inseridos numa mensagem simples,\r\nnum arquivo HTML e numa string em formato\r\nJSON por meio de nós template que contém\r\nos respectivos modelos de mensagem,\r\narquivo e objeto.\r\nO nó file out grava o conteúdo HTML em \r\num arquivo.",
+        "env": []
+    },
+    {
+        "id": "07f47057752c6fdd",
+        "type": "template",
+        "z": "df70f5cac73f7b13",
+        "name": "modelo [texto]",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Olá {{campo1}}, aqui é o Node-RED!\nIdade: {{campo2}} em {{campo3}}",
+        "output": "str",
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "47976454e5a3c656"
+            ]
+        ]
+    },
+    {
+        "id": "dd82fe6917f512e4",
+        "type": "template",
+        "z": "df70f5cac73f7b13",
+        "name": "modelo [html]",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head><title>Node-RED</title></head>\n    <body bgcolor=\"#AABBCC\">\n        <h1>Olá {{campo1}}, aqui é o Node-RED!</h1>\n        <p>Idade: {{campo2}}</p>\n        <p>Timestamp: {{campo3}}</p>\n    </body>\n</html>",
+        "output": "str",
+        "x": 240,
+        "y": 180,
+        "wires": [
+            [
+                "47976454e5a3c656",
+                "e204ceb81802eed4"
+            ]
+        ]
+    },
+    {
+        "id": "82fd15dc6b6b53c1",
+        "type": "inject",
+        "z": "df70f5cac73f7b13",
+        "name": "Nome",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "campo1",
+                "v": "Peter",
+                "vt": "str"
+            },
+            {
+                "p": "campo2",
+                "v": "60",
+                "vt": "str"
+            },
+            {
+                "p": "campo3",
+                "v": "iso",
+                "vt": "date"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "a ser processada",
+        "payloadType": "str",
+        "x": 90,
+        "y": 40,
+        "wires": [
+            [
+                "07f47057752c6fdd",
+                "dd82fe6917f512e4",
+                "2cd0dfbab49ee2e5"
+            ]
+        ]
+    },
+    {
+        "id": "47976454e5a3c656",
+        "type": "debug",
+        "z": "df70f5cac73f7b13",
+        "name": "Saída",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "2cd0dfbab49ee2e5",
+        "type": "template",
+        "z": "df70f5cac73f7b13",
+        "name": "modelo [json]",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"nome\": \"{{campo1}}\",\n    \"idade\": \"{{campo2}}\",\n    \"timestamp\": \"{{campo3}}\"\n}",
+        "output": "str",
+        "x": 170,
+        "y": 240,
+        "wires": [
+            [
+                "47976454e5a3c656"
+            ]
+        ]
+    },
+    {
+        "id": "e204ceb81802eed4",
+        "type": "file",
+        "z": "df70f5cac73f7b13",
+        "name": "Olá.html",
+        "filename": "flows/capítulo3/Olá.html",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 460,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    }
+]

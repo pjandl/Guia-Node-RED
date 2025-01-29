@@ -1,0 +1,150 @@
+[
+    {
+        "id": "e4c683945fdf5507",
+        "type": "tab",
+        "label": "StatusHTML",
+        "disabled": false,
+        "info": "Aplicação dos nós:\r\n - inject,\r\n - file in,\r\n - change,\r\n - template,\r\n - file out, e\r\n - debug.\r\n\r\nNeste fluxo, a partir da injeção de um \r\nobjeto JSON, efetua a leitura de um arquivo, \r\ncujo conteúdo será usado como modelo de um \r\nnó template, que produz um texto HTML com \r\nas propriedades do objeto JSON incorporadas, \r\nque será gravado em um arquivo. \r\n\r\nDevido as características dos nós \r\nutilizados, é necessário um nó change \r\npara reorganizar a propriedades ao longo \r\ndo fluxo.",
+        "env": []
+    },
+    {
+        "id": "64c74d0bff227bfb",
+        "type": "inject",
+        "z": "e4c683945fdf5507",
+        "name": "Injeção de JSON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "dados",
+                "v": "{\"codigo\":13,\"nivel\":\"aviso\",\"descricao\":\"fluxo em operação normal\"}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            [
+                "2eee8e65005318fa"
+            ]
+        ]
+    },
+    {
+        "id": "2eee8e65005318fa",
+        "type": "file in",
+        "z": "e4c683945fdf5507",
+        "name": "modelo-2-html.mod",
+        "filename": "flows/capitulo3/modelo-2-html.mod",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [
+                "7471ba08637a9fb5"
+            ]
+        ]
+    },
+    {
+        "id": "f831d7c5fcca46b4",
+        "type": "template",
+        "z": "e4c683945fdf5507",
+        "name": "Modelo Dinâmico",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "",
+        "output": "str",
+        "x": 370,
+        "y": 220,
+        "wires": [
+            [
+                "0479a0d021d41101"
+            ]
+        ]
+    },
+    {
+        "id": "0479a0d021d41101",
+        "type": "file",
+        "z": "e4c683945fdf5507",
+        "name": "status.html",
+        "filename": "flows/capitulo3/status.html",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 430,
+        "y": 280,
+        "wires": [
+            [
+                "b9c8b490dc41576a"
+            ]
+        ]
+    },
+    {
+        "id": "b9c8b490dc41576a",
+        "type": "debug",
+        "z": "e4c683945fdf5507",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "7471ba08637a9fb5",
+        "type": "change",
+        "z": "e4c683945fdf5507",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "template",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "dados",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 160,
+        "wires": [
+            [
+                "f831d7c5fcca46b4"
+            ]
+        ]
+    }
+]

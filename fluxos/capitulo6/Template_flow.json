@@ -1,0 +1,176 @@
+[
+    {
+        "id": "087014ed026a1685",
+        "type": "tab",
+        "label": "Template",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "318e6091209734d4",
+        "type": "ui_template",
+        "z": "087014ed026a1685",
+        "group": "ee7010bc34956053",
+        "name": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "format": "<div layout=\"row\" layout-align=\"space-between\">\n  <p>Paridade({{msg.payload}}) =  </p>\n  <font size=\"+2\" color=\"{{((msg.payload || 0) % 2 === 0) ? 'green' : 'red'}}\">\n    {{(msg.payload || 0) % 2 === 0 ? 'par' : 'ímpar'}}\n  </font>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 340,
+        "y": 80,
+        "wires": [
+            [
+                "bb6274a87420d647"
+            ]
+        ]
+    },
+    {
+        "id": "bb6274a87420d647",
+        "type": "debug",
+        "z": "087014ed026a1685",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "78cdad93e52b27af",
+        "type": "ui_text_input",
+        "z": "087014ed026a1685",
+        "name": "",
+        "label": "Número",
+        "tooltip": "",
+        "group": "ee7010bc34956053",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "318e6091209734d4"
+            ]
+        ]
+    },
+    {
+        "id": "template_node",
+        "type": "ui_template",
+        "z": "087014ed026a1685",
+        "group": "632ab236bea7c7a0",
+        "name": "Table Template",
+        "order": 4,
+        "width": "10",
+        "height": "6",
+        "format": "<style>\n    table {\n        width: 100%;\n        border-collapse: collapse;\n    }\n    th, td {\n        border: 1px solid #ddd;\n        padding: 8px;\n        text-align: left;\n    }\n    th {\n        background-color: #4CAF50;\n        color: white;\n    }\n    tr:nth-child(even) {\n        background-color: #f2f2f2;\n    }\n    tr:hover {\n        background-color: #ddd;\n    }\n</style>\n<table>\n    <tr>\n        <th>Personagem</th>\n        <th>Lançamento</th>\n        <th>Criadores</th>\n    </tr>\n    <tr ng-repeat=\"item in msg.payload\">\n        <td>{{item.p}}</td>\n        <td>{{item.a}}</td>\n        <td>{{item.c}}</td>\n    </tr>\n</table>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 540,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "72a0b82b5205b614",
+        "type": "comment",
+        "z": "087014ed026a1685",
+        "name": "Widget de Paridade",
+        "info": "Exemplo de widget construído com template,\nque determina a paridade de um número \ninteiro recebido no payload, exibindo tanto\no número como se é par ou ímpar.\n\nNeste fluxo um widget text permite que o \nusuário realize a entrada do valor que será\ntestado quanto sua paridade.\n\nO nó debug mostra que o payload é reenviado \npelo nó template, podendo ser utilizado\npor outros nós.",
+        "x": 170,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "2ad7c05edbf41a9f",
+        "type": "comment",
+        "z": "087014ed026a1685",
+        "name": "Widget Tabela de Dados",
+        "info": "Exemplo de widget construído com template,\nque permite a exibição de um array de \nobjetos JSON na forma de uma tabela.\n\nUtiliza diretivas do framework Angular \npercorrer os itens do array, organizando\nas linhas da tabela.\n\nNeste fluxo um nó text permite que o \nusuário realize a entrada do valor que será\ntestado quanto sua paridade.\n\nO nó debug mostra que o payload é reenviado \npelo nó template, podendo ser utilizado\npor outros nós.",
+        "x": 190,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ca764bcab0282d3f",
+        "type": "ui_button",
+        "z": "087014ed026a1685",
+        "name": "",
+        "group": "632ab236bea7c7a0",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Envia Dados",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "fa-envelope",
+        "payload": "[{\"p\":\"Capitão América\",\"a\":1941,\"c\":\"Joe Simon, Jack Kirby\"},{\"p\":\"Homem-Aranha\",\"a\":1962,\"c\":\"Stan Lee, Steve Ditko\"},{\"p\":\"Thor\",\"a\":1962,\"c\":\"Stan Lee, Larry Lieber, Jack Kirby\"},{\"p\":\"Hulk\",\"a\":1962,\"c\":\"Stan Lee, Jack Kirby\"},{\"p\":\"Homem de Ferro\",\"a\":1963,\"c\":\"Stan Lee, Larry Lieber, Don Heck, Jack Kirby\"}]",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "template_node"
+            ]
+        ]
+    },
+    {
+        "id": "ee7010bc34956053",
+        "type": "ui_group",
+        "name": "Template/Paridade",
+        "tab": "c69b4e9665932d71",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "632ab236bea7c7a0",
+        "type": "ui_group",
+        "name": "Template/Tabela",
+        "tab": "c69b4e9665932d71",
+        "order": 2,
+        "disp": true,
+        "width": "10",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "c69b4e9665932d71",
+        "type": "ui_tab",
+        "name": "GNR 11",
+        "icon": "star",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    }
+]

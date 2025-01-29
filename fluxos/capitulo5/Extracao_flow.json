@@ -1,0 +1,98 @@
+[
+    {
+        "id": "85e355149de367f5",
+        "type": "tab",
+        "label": "Extração",
+        "disabled": false,
+        "info": "Este fluxo mostra o uso do nó html para \r\nextrair um seletor específico de um \r\ndocumento HTML obtido na web por meio de \r\num nó http_request.\r\n\r\nO fluxo é acionado por um nó inject e os\r\nresultados produzidos são exibidos com um \r\nnó debug.",
+        "env": []
+    },
+    {
+        "id": "f90b62c96637281e",
+        "type": "http request",
+        "z": "85e355149de367f5",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://www.fatecjd.edu.br/portal/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 400,
+        "y": 60,
+        "wires": [
+            [
+                "21f69ef47335c057"
+            ]
+        ]
+    },
+    {
+        "id": "754a09b5588e6b80",
+        "type": "inject",
+        "z": "85e355149de367f5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "f90b62c96637281e"
+            ]
+        ]
+    },
+    {
+        "id": "21f69ef47335c057",
+        "type": "html",
+        "z": "85e355149de367f5",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "html > body > script",
+        "ret": "attr",
+        "as": "single",
+        "chr": "_",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "6e94161c6913a534"
+            ]
+        ]
+    },
+    {
+        "id": "6e94161c6913a534",
+        "type": "debug",
+        "z": "85e355149de367f5",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 140,
+        "wires": []
+    }
+]

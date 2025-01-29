@@ -1,0 +1,73 @@
+[
+    {
+        "id": "f410050c3b2f867e",
+        "type": "tab",
+        "label": "GeradorDados",
+        "disabled": false,
+        "info": "Um exemplo de fluxo, que utiliza os nós:\r\n\r\ninject/injeção (com repetição automática);\r\ndebug/depuração.\r\n",
+        "env": []
+    },
+    {
+        "id": "addfe3bc7588431c",
+        "type": "inject",
+        "z": "f410050c3b2f867e",
+        "name": "Temporizador",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "727076d8187869ef",
+                "395364a11474e5c4"
+            ]
+        ]
+    },
+    {
+        "id": "727076d8187869ef",
+        "type": "debug",
+        "z": "f410050c3b2f867e",
+        "name": "Saída",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "counter",
+        "x": 410,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "395364a11474e5c4",
+        "type": "function",
+        "z": "f410050c3b2f867e",
+        "name": "Formatar",
+        "func": "var data = new Date(msg.payload);\nvar dia = data.getDate();\nvar mes = data.getMonth() + 1;\nvar ano = data.getFullYear();\nvar hor = data.getHours().toString().padStart(2, '0');\nvar min = data.getMinutes().toString().padStart(2, '0');\nmsg.payload = dia + '/' + mes + '/' + ano \n            + ' ' + hor + ':' + min;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 180,
+        "wires": [
+            [
+                "727076d8187869ef"
+            ]
+        ]
+    }
+]

@@ -1,0 +1,85 @@
+[
+    {
+        "id": "1dd4a9e058aee9da",
+        "type": "tab",
+        "label": "Link_Out_In",
+        "disabled": false,
+        "info": "Exemplo trivial de conexão virtual de \r\nnós com link out e link in.",
+        "env": []
+    },
+    {
+        "id": "8521b2b2c5b1f7a0",
+        "type": "inject",
+        "z": "1dd4a9e058aee9da",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "1823ef4872cd176a"
+            ]
+        ]
+    },
+    {
+        "id": "1823ef4872cd176a",
+        "type": "link out",
+        "z": "1dd4a9e058aee9da",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "d4310de0d0e2ebb1"
+        ],
+        "x": 315,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d4310de0d0e2ebb1",
+        "type": "link in",
+        "z": "1dd4a9e058aee9da",
+        "name": "link in 1",
+        "links": [
+            "1823ef4872cd176a"
+        ],
+        "x": 425,
+        "y": 60,
+        "wires": [
+            [
+                "64fbb7bd3c542d48"
+            ]
+        ]
+    },
+    {
+        "id": "64fbb7bd3c542d48",
+        "type": "debug",
+        "z": "1dd4a9e058aee9da",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 60,
+        "wires": []
+    }
+]

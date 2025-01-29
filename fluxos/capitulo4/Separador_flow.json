@@ -1,0 +1,136 @@
+[
+    {
+        "id": "2a8eb72e252cd95a",
+        "type": "tab",
+        "label": "Separador",
+        "disabled": false,
+        "info": "Fluxo que mostra o funcionamento do nó \r\ncomplete. Utiliza os nós:\r\n - inject, \r\n - switch,\r\n - debug e\r\n - complete.\r\n\r\nO nó inject envia, a cada 10 segundos, um \r\nnúmero inteiro aleatório entre [1,100] \r\npara o nó switch, que separa as mensagens \r\nconforme seu payload.\r\nAs menores ou iguais a 50 seguem uma rota \r\nfinalizada no nó debub '<=50'. As outras \r\nseguem a rota finalizada no nó debug '>50'.\r\n\r\nO nó debug '>50' é monitorado pelo nó \r\ncomplete, de maneira que ao concluir seu \r\nprocessamento, inicia o fluxo secundário \r\niniciado pelo nó complete, finalizado em \r\noutro nó debug.",
+        "env": []
+    },
+    {
+        "id": "e3616bcfc90d05de",
+        "type": "inject",
+        "z": "2a8eb72e252cd95a",
+        "name": "Aleatório",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "$ceil( $random() * 100 )",
+        "payloadType": "jsonata",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "cb9be3da5bad42a1"
+            ]
+        ]
+    },
+    {
+        "id": "5cd94aefd123f63b",
+        "type": "debug",
+        "z": "2a8eb72e252cd95a",
+        "name": "<=50",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 490,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "6d7765bd7e35c6c7",
+        "type": "debug",
+        "z": "2a8eb72e252cd95a",
+        "name": ">50",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 490,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "cb9be3da5bad42a1",
+        "type": "switch",
+        "z": "2a8eb72e252cd95a",
+        "name": "Separador",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "50",
+                "vt": "num"
+            },
+            {
+                "t": "gt",
+                "v": "50",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 60,
+        "wires": [
+            [
+                "5cd94aefd123f63b"
+            ],
+            [
+                "6d7765bd7e35c6c7"
+            ]
+        ]
+    },
+    {
+        "id": "004e10e743185f20",
+        "type": "complete",
+        "z": "2a8eb72e252cd95a",
+        "name": "",
+        "scope": [
+            "6d7765bd7e35c6c7"
+        ],
+        "uncaught": false,
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "3ce8e2a6a0880b5b"
+            ]
+        ]
+    },
+    {
+        "id": "3ce8e2a6a0880b5b",
+        "type": "debug",
+        "z": "2a8eb72e252cd95a",
+        "name": "Sep>50",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 500,
+        "y": 160,
+        "wires": []
+    }
+]

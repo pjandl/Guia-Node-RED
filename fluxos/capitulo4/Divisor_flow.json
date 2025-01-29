@@ -1,0 +1,160 @@
+[
+    {
+        "id": "70a6afb71b206ba0",
+        "type": "tab",
+        "label": "Divisor",
+        "disabled": false,
+        "info": "Este fluxo é uma aplicação direta do nó \r\nsplit, e faz uso dos nós:\r\n - inject;\r\n  - split; e \r\n  - debug.\r\n\r\nOs nós inject enviam mensagens de tipo \r\nespecífico para o nó split 'Dividir': \r\num array com inteiros, uma string com \r\ndados separados por vírgulas e um objeto \r\nJSON.\r\n\r\nO nó debug 'SubMensagem' apresentará \r\nos objetos completos (submensagens) \r\nresultantes da divisão da mensagem \r\ninjetada, indicando o número de partes \r\ncomo estado.\r\n\r\nTambém existe um segundo nó split\r\n'Reagrupar' que recebe somente a \r\ninjeção de um array, mostrando seu \r\nreagrupamento de 2 em 2 elementos, \r\nexibido no nó debug 'SubGrupo'.",
+        "env": []
+    },
+    {
+        "id": "075c3a0729afc339",
+        "type": "inject",
+        "z": "70a6afb71b206ba0",
+        "name": "Array",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[1958, 1962, 1970, 1994, 2002]",
+        "payloadType": "json",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "118d081714a431ce",
+                "3c295024e778d135"
+            ]
+        ]
+    },
+    {
+        "id": "118d081714a431ce",
+        "type": "split",
+        "z": "70a6afb71b206ba0",
+        "name": "Dividir",
+        "splt": ",",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "keys",
+        "property": "payload",
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "18779f60e5f6fda5"
+            ]
+        ]
+    },
+    {
+        "id": "18779f60e5f6fda5",
+        "type": "debug",
+        "z": "70a6afb71b206ba0",
+        "name": "SubMensagem",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "parts.count",
+        "statusType": "msg",
+        "x": 480,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9269431c1bc84d5e",
+        "type": "inject",
+        "z": "70a6afb71b206ba0",
+        "name": "String",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Branco, Verde, Azul",
+        "payloadType": "str",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "118d081714a431ce"
+            ]
+        ]
+    },
+    {
+        "id": "ac938e7e717dd686",
+        "type": "inject",
+        "z": "70a6afb71b206ba0",
+        "name": "Objeto",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"autor\":\"Peter Jandl Jr\",\"titulo\":\"Guia do Node-RED\",\"ano\":2024}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "118d081714a431ce"
+            ]
+        ]
+    },
+    {
+        "id": "3c295024e778d135",
+        "type": "split",
+        "z": "70a6afb71b206ba0",
+        "name": "Reagrupar",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": "2",
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 290,
+        "y": 40,
+        "wires": [
+            [
+                "a0d8cdb7cb02f2da"
+            ]
+        ]
+    },
+    {
+        "id": "a0d8cdb7cb02f2da",
+        "type": "debug",
+        "z": "70a6afb71b206ba0",
+        "name": "SubGrupo",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 40,
+        "wires": []
+    }
+]

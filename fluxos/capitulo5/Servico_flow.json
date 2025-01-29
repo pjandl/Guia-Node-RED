@@ -1,0 +1,103 @@
+[
+    {
+        "id": "5193384d657ac669",
+        "type": "tab",
+        "label": "Serviço",
+        "disabled": false,
+        "info": "Este fluxo mostra uma aplicação simples do \r\nnó http_response, combinado com nós http_in, \r\nfunction e template.\r\n\r\nO nó http_in recebe pedidos HTTP GET na URL \r\n/fatorial, juntamente com um parâmetro de \r\nconsulta n, que deve conter um número inteiro \r\npositivo.\r\n\r\nO nó http_in encaminha cada pedido recebido \r\npara o nó function, que calcula o fatorial \r\ndo número n recebido, cujo resultado formatado \r\né colocado no payload, juntamente com o \r\ncálculo realizado na propriedade output.\r\n\r\nNote que o nó function possui duas saídas, \r\numa para saída padrão (sem erros) e outra \r\npara erros, como ausência do parâmetro \r\nde consulta n, ou valores não numéricos, \r\nou ainda negativos.\r\n\r\nA saída sem erros de function segue para \r\num nó template que tem o modelo HTML de \r\num processamento bem-sucedido. A outra \r\nsaída segue para o segundo nó template, \r\ncujo modelo HTML exibe o erro detectado.\r\n\r\nOs dois nós template dirigem seus \r\nresultados para o nó http_response.",
+        "env": []
+    },
+    {
+        "id": "47fff78d201e080b",
+        "type": "http in",
+        "z": "5193384d657ac669",
+        "name": "",
+        "url": "/fatorial",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "cf1e9844249ba9d3"
+            ]
+        ]
+    },
+    {
+        "id": "5104c072c653a6bb",
+        "type": "http response",
+        "z": "5193384d657ac669",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 670,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "f98548a1ecb318e0",
+        "type": "template",
+        "z": "5193384d657ac669",
+        "name": "Saída Padrão",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"pt\">\n\t<head>\n\t\t<meta charset=\"utf-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<title>Fatorial #{{req.query.n}}</title>\n\t</head>\n\t<body>\n\t\t<h2>Fatorial de {{req.query.n}}</h2>\n\t\t<p><b>Fat({{req.query.n}})</b> = {{req.query.n}}! = {{output}} = {{payload}}</p>\n\t</body>\n</html>",
+        "output": "str",
+        "x": 480,
+        "y": 40,
+        "wires": [
+            [
+                "5104c072c653a6bb"
+            ]
+        ]
+    },
+    {
+        "id": "cf1e9844249ba9d3",
+        "type": "function",
+        "z": "5193384d657ac669",
+        "name": "Parâm[n]",
+        "func": "msg.statusCode = 400;\nif (msg.req.query.n == null) {\n    msg.payload = 'Não foi fornecido valor de n'\n} else if (isNaN(msg.req.query.n)) {\n    msg.payload = 'O valor de n não é numérico'\n} else {\n    if (parseInt(msg.req.query.n) < 0) {\n        msg.payload = 'O valor de n é inválido'\n    } else {\n        let n = parseInt(msg.req.query.n);\n        msg.statusCode = 200;\n        msg.output = msg.req.query.n;\n        if (n == 0) {\n            msg.output = \"1\";\n            msg.payload = 1;\n        } else {\n            let fat = n;\n            for (n = n - 1; n > 0; n--) {\n                fat *= n;\n                msg.output += ' * ' + parseInt(n);\n            }\n            msg.payload = fat.toLocaleString('pt-BR');\n        }\n    }\n}\nif (msg.statusCode == 200) return [msg, null];\nreturn [null, msg];",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 80,
+        "wires": [
+            [
+                "f98548a1ecb318e0"
+            ],
+            [
+                "eeb9ac64269c4155"
+            ]
+        ],
+        "outputLabels": [
+            "padrão",
+            "erro"
+        ]
+    },
+    {
+        "id": "eeb9ac64269c4155",
+        "type": "template",
+        "z": "5193384d657ac669",
+        "name": "Erro",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"pt\">\n\t<head>\n\t\t<meta charset=\"utf-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<title>Erro {{statusCode}}</title>\n\t</head>\n\t<body>\n\t\t<h1>{{statusCode}}</h1>\n\t\t<h3>{{payload}}</h3>\n\t</body>\n</html>",
+        "output": "str",
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "5104c072c653a6bb"
+            ]
+        ]
+    }
+]

@@ -1,0 +1,305 @@
+[
+    {
+        "id": "11ad5f5792752b1c",
+        "type": "tab",
+        "label": "Componentes UI",
+        "disabled": false,
+        "info": "Fluxo que mostra as funcionalidades básicas \r\ndos widgets:\r\n - button;\r\n - switch;\r\n - text_input; e\r\n - numeric.\r\n\r\n Cada um destes widgets envia seu payload\r\n a um widget text, que permite a visualização \r\n do tópico e do payload recebido.",
+        "env": []
+    },
+    {
+        "id": "406d75b06dd6c7c6",
+        "type": "junction",
+        "z": "11ad5f5792752b1c",
+        "x": 340,
+        "y": 80,
+        "wires": [
+            [
+                "5aea412f946e4c64",
+                "a6c5732b10229982"
+            ]
+        ]
+    },
+    {
+        "id": "0a5c81a74686b6eb",
+        "type": "ui_button",
+        "z": "11ad5f5792752b1c",
+        "name": "",
+        "group": "fde38b05557236c2",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Botão 2",
+        "tooltip": "Este é o botão b2",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "b2",
+        "payloadType": "str",
+        "topic": "Botão",
+        "topicType": "str",
+        "x": 100,
+        "y": 100,
+        "wires": [
+            [
+                "406d75b06dd6c7c6"
+            ]
+        ]
+    },
+    {
+        "id": "d7972e9953f8c1ce",
+        "type": "ui_text_input",
+        "z": "11ad5f5792752b1c",
+        "name": "",
+        "label": "Texto",
+        "tooltip": "Campo para entrada de texto",
+        "group": "be5cf3cdb716c01e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "Texto",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 230,
+        "y": 160,
+        "wires": [
+            [
+                "406d75b06dd6c7c6"
+            ]
+        ]
+    },
+    {
+        "id": "8691af55b2645943",
+        "type": "ui_switch",
+        "z": "11ad5f5792752b1c",
+        "name": "",
+        "label": "Chave",
+        "tooltip": "Chave On/Off",
+        "group": "fde38b05557236c2",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "Botão",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 90,
+        "y": 140,
+        "wires": [
+            [
+                "406d75b06dd6c7c6"
+            ]
+        ]
+    },
+    {
+        "id": "ab2d3e31d2f1dfca",
+        "type": "ui_numeric",
+        "z": "11ad5f5792752b1c",
+        "name": "",
+        "label": "Número Inteiro",
+        "tooltip": "Campo para entrada numérica",
+        "group": "be5cf3cdb716c01e",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "Inteiro",
+        "topicType": "str",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "406d75b06dd6c7c6"
+            ]
+        ]
+    },
+    {
+        "id": "f16955a8aef9a2f6",
+        "type": "ui_button",
+        "z": "11ad5f5792752b1c",
+        "name": "",
+        "group": "fde38b05557236c2",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Botão 1",
+        "tooltip": "Este é o botão b1",
+        "color": "",
+        "bgcolor": "#FF7F27",
+        "className": "",
+        "icon": "check",
+        "payload": "b1",
+        "payloadType": "str",
+        "topic": "Botão",
+        "topicType": "str",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "406d75b06dd6c7c6"
+            ]
+        ]
+    },
+    {
+        "id": "6d5f64254136b059",
+        "type": "ui_numeric",
+        "z": "11ad5f5792752b1c",
+        "name": "",
+        "label": "Número Real",
+        "tooltip": "Campo para entrada numérica",
+        "group": "be5cf3cdb716c01e",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "Real",
+        "topicType": "str",
+        "format": "{{value|number:3}}",
+        "min": 0,
+        "max": 10,
+        "step": "0.025",
+        "className": "",
+        "x": 290,
+        "y": 200,
+        "wires": [
+            [
+                "406d75b06dd6c7c6"
+            ]
+        ]
+    },
+    {
+        "id": "5aea412f946e4c64",
+        "type": "debug",
+        "z": "11ad5f5792752b1c",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a6c5732b10229982",
+        "type": "ui_text",
+        "z": "11ad5f5792752b1c",
+        "group": "9e515950da3d7ad3",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Ações na UI",
+        "format": "{{msg.topic}} [ {{msg.payload}} ]",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 550,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "d2a7d4f4f38c3408",
+        "type": "ui_spacer",
+        "z": "11ad5f5792752b1c",
+        "name": "spacer",
+        "group": "ee7010bc34956053",
+        "order": 1,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "fde38b05557236c2",
+        "type": "ui_group",
+        "name": "Botões",
+        "tab": "3a664220e244a1e0",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "be5cf3cdb716c01e",
+        "type": "ui_group",
+        "name": "Entrada",
+        "tab": "3a664220e244a1e0",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9e515950da3d7ad3",
+        "type": "ui_group",
+        "name": "Estado",
+        "tab": "3a664220e244a1e0",
+        "order": 3,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ee7010bc34956053",
+        "type": "ui_group",
+        "name": "Tabela",
+        "tab": "c69b4e9665932d71",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "3a664220e244a1e0",
+        "type": "ui_tab",
+        "name": "GNR 6",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "c69b4e9665932d71",
+        "type": "ui_tab",
+        "name": "GNR 10",
+        "icon": "star",
+        "order": 7,
+        "disabled": false,
+        "hidden": false
+    }
+]

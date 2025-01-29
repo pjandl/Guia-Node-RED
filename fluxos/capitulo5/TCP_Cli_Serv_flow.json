@@ -1,0 +1,249 @@
+[
+    {
+        "id": "bacda41862ba2e5c",
+        "type": "tab",
+        "label": "Cliente e Servidor TCP",
+        "disabled": false,
+        "info": "Os fluxos desta guia mostram aplicações \r\ndiretas dos nós tcp_in, tcp_out e \r\ntcp_request.",
+        "env": []
+    },
+    {
+        "id": "86d134427d395d4e",
+        "type": "inject",
+        "z": "bacda41862ba2e5c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Olá!",
+        "payloadType": "str",
+        "x": 250,
+        "y": 120,
+        "wires": [
+            [
+                "90d37ca5f99a534f"
+            ]
+        ]
+    },
+    {
+        "id": "90d37ca5f99a534f",
+        "type": "tcp request",
+        "z": "bacda41862ba2e5c",
+        "name": "",
+        "server": "localhost",
+        "port": "6868",
+        "out": "time",
+        "ret": "string",
+        "splitc": "0",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "2cfabb05e7b989b9"
+            ]
+        ]
+    },
+    {
+        "id": "71a6698abc922cb7",
+        "type": "tcp in",
+        "z": "bacda41862ba2e5c",
+        "name": "",
+        "server": "server",
+        "host": "",
+        "port": "6868",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "",
+        "topic": "",
+        "trim": false,
+        "base64": false,
+        "tls": "",
+        "x": 300,
+        "y": 40,
+        "wires": [
+            [
+                "85224ae3f6ceda18"
+            ]
+        ]
+    },
+    {
+        "id": "73ed5436704fac7d",
+        "type": "tcp out",
+        "z": "bacda41862ba2e5c",
+        "name": "",
+        "host": "",
+        "port": "",
+        "beserver": "reply",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 670,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "85224ae3f6ceda18",
+        "type": "function",
+        "z": "bacda41862ba2e5c",
+        "name": "Eco",
+        "func": "msg.payload = (msg.payload + \" \").repeat(2) + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 40,
+        "wires": [
+            [
+                "73ed5436704fac7d"
+            ]
+        ]
+    },
+    {
+        "id": "2cfabb05e7b989b9",
+        "type": "debug",
+        "z": "bacda41862ba2e5c",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ffb71462c95d3459",
+        "type": "comment",
+        "z": "bacda41862ba2e5c",
+        "name": "Servidor",
+        "info": "Neste fluxo, um nó tcp_in recebe mensagens\nde clientes TCP/IP, atendendo na porta 6868 \ndo localhost.\n\nUm nó function recebe as mensagens e as \ntriplica, como um \"eco\", encaminhando-as \npara o nó tcp_out, configurado para \nresponder as mensagens recebidas pelo nó \ntcp_in.\n\nMensagens de múltiplos clientes são ",
+        "x": 100,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "dfe68c78074d8766",
+        "type": "comment",
+        "z": "bacda41862ba2e5c",
+        "name": "Cliente",
+        "info": "Neste fluxo, dois nós inject enviam  \nmensagens de texto para um nó tcp_request, \nque envia um pedido ao servidor que \natende em localhost:6868. Um último nó \ninject envia uma terceira mensagem para \num segundo nó tcp_request.\n\nOs nós debugs mostram as respostas recebidas \nde cada nó tcp_request, todas enviadas \npelo mesmo servidor, no caso as mensagens e seu\neco.",
+        "x": 90,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b45a3ad849160795",
+        "type": "inject",
+        "z": "bacda41862ba2e5c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Tudo bem?",
+        "payloadType": "str",
+        "x": 260,
+        "y": 160,
+        "wires": [
+            [
+                "90d37ca5f99a534f"
+            ]
+        ]
+    },
+    {
+        "id": "586dbccb97f10b52",
+        "type": "tcp request",
+        "z": "bacda41862ba2e5c",
+        "name": "",
+        "server": "localhost",
+        "port": "6868",
+        "out": "time",
+        "ret": "string",
+        "splitc": "0",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "3775b965104db078"
+            ]
+        ]
+    },
+    {
+        "id": "67ae36c5cc7b896b",
+        "type": "inject",
+        "z": "bacda41862ba2e5c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Tchau!",
+        "payloadType": "str",
+        "x": 250,
+        "y": 200,
+        "wires": [
+            [
+                "586dbccb97f10b52"
+            ]
+        ]
+    },
+    {
+        "id": "3775b965104db078",
+        "type": "debug",
+        "z": "bacda41862ba2e5c",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 200,
+        "wires": []
+    }
+]

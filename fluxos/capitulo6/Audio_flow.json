@@ -1,0 +1,172 @@
+[
+    {
+        "id": "e1de13e1a262d452",
+        "type": "tab",
+        "label": "Audio",
+        "disabled": false,
+        "info": "Este fluxo mostra o uso do widget audio_out \r\npara:\r\n - reprodução de texto com TTS;\r\n - reprodução de arquivo mp3; e \r\n - reprodução de arquivo wav.\r\n\r\nO nó inject 'texto' envia uma cadeia de \r\ncaracteres para um nó audio_out e um widget \r\ntext; com isso, o audio_out sintetiza a \r\nfala da mensagem, que fica visível na \r\ninterface de usuário do dashboard.\r\n\r\nOs nós inject 'mp3' e 'wav' enviam o nome \r\nde um arquivo no respectivo formato e um \r\najuste do nível de volume para um nó \r\nfile_in, que efetua a leitura do arquivo, \r\narmazenando seu conteúdo num buffer enviado \r\nao nó audio_out que realiza sua reprodução, \r\nsinalizada por seu estado.\r\n",
+        "env": []
+    },
+    {
+        "id": "9481bac91b2b0a43",
+        "type": "ui_audio",
+        "z": "e1de13e1a262d452",
+        "name": "",
+        "group": "3876c439dca78bda",
+        "voice": "Microsoft Maria - Portuguese (Brazil)",
+        "always": true,
+        "x": 460,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3c186e3eb2498c25",
+        "type": "inject",
+        "z": "e1de13e1a262d452",
+        "name": "texto",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "A conversão de texto para fala é um sucesso!",
+        "payloadType": "str",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "9481bac91b2b0a43",
+                "ca38966c98188475"
+            ]
+        ]
+    },
+    {
+        "id": "ca38966c98188475",
+        "type": "ui_text",
+        "z": "e1de13e1a262d452",
+        "group": "3876c439dca78bda",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Mensagem",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 450,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d7f897992333c9a0",
+        "type": "inject",
+        "z": "e1de13e1a262d452",
+        "name": "mp3",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "level",
+                "v": "50",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "flows\\\\capitulo6\\\\A-Tone.mp3",
+        "payloadType": "str",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "63cf29d9e32348b3"
+            ]
+        ]
+    },
+    {
+        "id": "394e18d0a2fe5ec4",
+        "type": "inject",
+        "z": "e1de13e1a262d452",
+        "name": "wav",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "level",
+                "v": "50",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "flows\\\\capitulo6\\\\boing.wav",
+        "payloadType": "str",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "63cf29d9e32348b3"
+            ]
+        ]
+    },
+    {
+        "id": "63cf29d9e32348b3",
+        "type": "file in",
+        "z": "e1de13e1a262d452",
+        "name": "A-Tone",
+        "filename": "payload",
+        "filenameType": "msg",
+        "format": "stream",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "9481bac91b2b0a43"
+            ]
+        ]
+    },
+    {
+        "id": "3876c439dca78bda",
+        "type": "ui_group",
+        "name": "Audio",
+        "tab": "a62d47f9055ba8d9",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a62d47f9055ba8d9",
+        "type": "ui_tab",
+        "name": "GNR 4",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

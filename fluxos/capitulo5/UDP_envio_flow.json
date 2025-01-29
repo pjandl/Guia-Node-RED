@@ -1,0 +1,99 @@
+[
+    {
+        "id": "36cea773bcbbe87e",
+        "type": "tab",
+        "label": "Envio UDP",
+        "disabled": false,
+        "info": "Este fluxo mostra o uso do nó udp_out para \r\nenviar dados para programas externos.\r\n\r\nO nó inject envia um inteiro aleatório \r\nentre [1,100] como payload e uma string \r\nfixa na propriedade topic.\r\n\r\nO nó change concatena estas duas \r\npropriedades em payload, separando seus \r\nvalores por uma vírgula.\r\n\r\nO nó udp_out está configurado para o modo \r\nde mensagem UDP, conectando-se com a porta \r\n7447 do localhost, para onde envia uma \r\nstring contendo uma string fixa e um \r\ninteiro aleatório.\r\n",
+        "env": []
+    },
+    {
+        "id": "f831b55d1dd5f9ed",
+        "type": "inject",
+        "z": "36cea773bcbbe87e",
+        "name": "inteiro [1,100]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "node-red",
+        "payload": "$ceil($random()*100)",
+        "payloadType": "jsonata",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "a31bbf2a525e8bf4"
+            ]
+        ]
+    },
+    {
+        "id": "d77fc7476d05d63d",
+        "type": "udp out",
+        "z": "36cea773bcbbe87e",
+        "name": "",
+        "addr": "localhost",
+        "iface": "",
+        "port": "7447",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 610,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a31bbf2a525e8bf4",
+        "type": "change",
+        "z": "36cea773bcbbe87e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "topic & \",\" & payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "d77fc7476d05d63d",
+                "145ee5126fb2d848"
+            ]
+        ]
+    },
+    {
+        "id": "145ee5126fb2d848",
+        "type": "debug",
+        "z": "36cea773bcbbe87e",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 120,
+        "wires": []
+    }
+]

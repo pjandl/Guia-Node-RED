@@ -1,0 +1,155 @@
+[
+    {
+        "id": "02f6fd2f0122abd5",
+        "type": "tab",
+        "label": "SQLite 2",
+        "disabled": false,
+        "info": "Este fluxo mostra o uso do nó sqlite na \r\ncriação de uma tabela em um novo banco de \r\ndados, permitindo a inclusão de registros \r\nna tabela.\r\n\r\nA implantação deste fluxo aciona a conexão \r\ndo nó sqlite com o banco de dados configurado, \r\nque é criado caso não exista.\r\n\r\nUm nó inject envia o comando SQL de \r\ncriação da tabela. Se executado mais de \r\numa vez, produz um erro correspondente a \r\ntentativa de duplicação de uma tabela \r\nexistente.\r\n\r\nA tabela criada, denominada, permite armazenar pares \r\nchave-valor e possui três campos (ou colunas):\r\nid, que é sua chave primária inteira;\r\nchave, que contém uma string; e\r\nvalor, que contém um número real. \r\n\r\nO outro nó inject envia um timestamp ao nó \r\nfunction, que gera um texto aleatório de \r\ntrês letras e um valor real entre [0,100), \r\norganizando um comando SQL insert para\r\ninclusão de tais valores na tabela. \r\n\r\nO nó debug possibilita ver os resultados \r\ndestas ações na guia depurar: quando bem\r\nsucedidas, o tópico exibe o comando SQL e \r\npayload mostra o resultado (vazio para \r\ncriação de tabelas e inserção de dados);\r\nquando mal sucedidas, o tópico indica \r\n'error' e o payload mostra a mensagem \r\ncorrespondente.",
+        "env": []
+    },
+    {
+        "id": "b972166fa567d5bb",
+        "type": "sqlite",
+        "z": "02f6fd2f0122abd5",
+        "mydb": "d7edacdec49cef83",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "9ee7d96dcb2f924b"
+            ]
+        ]
+    },
+    {
+        "id": "37c3c7c2347e8337",
+        "type": "inject",
+        "z": "02f6fd2f0122abd5",
+        "name": "Nova Tabela",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "create table chave_valor (id integer primary key, chave text, valor real)",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "b972166fa567d5bb"
+            ]
+        ]
+    },
+    {
+        "id": "9ee7d96dcb2f924b",
+        "type": "debug",
+        "z": "02f6fd2f0122abd5",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "37ad5b4e41d98071",
+        "type": "inject",
+        "z": "02f6fd2f0122abd5",
+        "name": "Novo Registro",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "dc6cca92a60eaced"
+            ]
+        ]
+    },
+    {
+        "id": "dc6cca92a60eaced",
+        "type": "function",
+        "z": "02f6fd2f0122abd5",
+        "name": "Random Insert",
+        "func": "let chave = \"\";\nfor (let i = 0; i < 3; i++) {\n    chave += String.fromCharCode(65 + Math.floor(26*Math.random()));\n}\nlet valor = Math.random()*100;\nmsg.topic = \"insert into chave_valor (chave, valor) values ('\" + chave + \"', \" + valor +\")\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "b972166fa567d5bb"
+            ]
+        ]
+    },
+    {
+        "id": "0772a5aaed8c454e",
+        "type": "inject",
+        "z": "02f6fd2f0122abd5",
+        "name": "Últimos 5 Registros",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "select * from chave_valor order by id desc limit 5",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "b972166fa567d5bb"
+            ]
+        ]
+    },
+    {
+        "id": "d7edacdec49cef83",
+        "type": "sqlitedb",
+        "db": "flows/capitulo7/gnr_1.db",
+        "mode": "RWC"
+    }
+]
