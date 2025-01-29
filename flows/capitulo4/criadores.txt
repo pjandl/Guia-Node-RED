@@ -1,5 +1,0 @@
-Brian Kernighan
-Dennis Ritchie
-Bjarne Stroustrup
-Anders Hejlsberg
-Andrey Breslav
