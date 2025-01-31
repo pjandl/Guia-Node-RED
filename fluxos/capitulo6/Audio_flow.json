@@ -1,16 +1,16 @@
 [
     {
-        "id": "e1de13e1a262d452",
+        "id": "bb42abda2b519687",
         "type": "tab",
         "label": "Audio",
         "disabled": false,
-        "info": "Este fluxo mostra o uso do widget audio_out \r\npara:\r\n - reprodução de texto com TTS;\r\n - reprodução de arquivo mp3; e \r\n - reprodução de arquivo wav.\r\n\r\nO nó inject 'texto' envia uma cadeia de \r\ncaracteres para um nó audio_out e um widget \r\ntext; com isso, o audio_out sintetiza a \r\nfala da mensagem, que fica visível na \r\ninterface de usuário do dashboard.\r\n\r\nOs nós inject 'mp3' e 'wav' enviam o nome \r\nde um arquivo no respectivo formato e um \r\najuste do nível de volume para um nó \r\nfile_in, que efetua a leitura do arquivo, \r\narmazenando seu conteúdo num buffer enviado \r\nao nó audio_out que realiza sua reprodução, \r\nsinalizada por seu estado.\r\n",
+        "info": "Este fluxo mostra o uso do widget audio_out \r\npara:\r\n - reprodução de texto com TTS;\r\n - reprodução de arquivo mp3; e \r\n - reprodução de arquivo wav.\r\n\r\nO nó inject 'texto' envia uma cadeia de \r\ncaracteres para um nó audio_out e um widget \r\ntext; com isso, o nó audio_out, que fica \r\ninvisível na interface de usuário do \r\ndashboard, sintetiza a \r\nfala da mensagem.\r\n\r\nOs nós inject 'mp3' e 'wav' enviam o nome \r\nde um arquivo no respectivo formato e um \r\najuste do nível de volume para um nó \r\nfile_in, que efetua a leitura do arquivo, \r\narmazenando seu conteúdo num buffer enviado \r\nao nó audio_out que realiza sua reprodução, \r\nsinalizada por seu estado.\r\n\r\nEm todos os casos, a reprodução do som \r\nsomente ocorre se a interface de usuário \r\nestiver aberta no browser.\r\n",
         "env": []
     },
     {
-        "id": "9481bac91b2b0a43",
+        "id": "4f018d508ba8e18b",
         "type": "ui_audio",
-        "z": "e1de13e1a262d452",
+        "z": "bb42abda2b519687",
         "name": "",
         "group": "3876c439dca78bda",
         "voice": "Microsoft Maria - Portuguese (Brazil)",
@@ -20,9 +20,9 @@
         "wires": []
     },
     {
-        "id": "3c186e3eb2498c25",
+        "id": "0910d180a6c3f1f4",
         "type": "inject",
-        "z": "e1de13e1a262d452",
+        "z": "bb42abda2b519687",
         "name": "texto",
         "props": [
             {
@@ -44,15 +44,15 @@
         "y": 40,
         "wires": [
             [
-                "9481bac91b2b0a43",
-                "ca38966c98188475"
+                "4f018d508ba8e18b",
+                "d8d9ca6f7a0bc539"
             ]
         ]
     },
     {
-        "id": "ca38966c98188475",
+        "id": "d8d9ca6f7a0bc539",
         "type": "ui_text",
-        "z": "e1de13e1a262d452",
+        "z": "bb42abda2b519687",
         "group": "3876c439dca78bda",
         "order": 1,
         "width": 0,
@@ -71,9 +71,9 @@
         "wires": []
     },
     {
-        "id": "d7f897992333c9a0",
+        "id": "091c7b24896f3ea5",
         "type": "inject",
-        "z": "e1de13e1a262d452",
+        "z": "bb42abda2b519687",
         "name": "mp3",
         "props": [
             {
@@ -90,20 +90,20 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "flows\\\\capitulo6\\\\A-Tone.mp3",
+        "payload": "fluxos\\\\capitulo6\\\\A-Tone.mp3",
         "payloadType": "str",
         "x": 110,
         "y": 120,
         "wires": [
             [
-                "63cf29d9e32348b3"
+                "173f9b5d2c1c0c44"
             ]
         ]
     },
     {
-        "id": "394e18d0a2fe5ec4",
+        "id": "1edb0737035ac590",
         "type": "inject",
-        "z": "e1de13e1a262d452",
+        "z": "bb42abda2b519687",
         "name": "wav",
         "props": [
             {
@@ -120,20 +120,20 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "flows\\\\capitulo6\\\\boing.wav",
+        "payload": "fluxos\\\\capitulo6\\\\boing.wav",
         "payloadType": "str",
         "x": 110,
         "y": 180,
         "wires": [
             [
-                "63cf29d9e32348b3"
+                "173f9b5d2c1c0c44"
             ]
         ]
     },
     {
-        "id": "63cf29d9e32348b3",
+        "id": "173f9b5d2c1c0c44",
         "type": "file in",
-        "z": "e1de13e1a262d452",
+        "z": "bb42abda2b519687",
         "name": "A-Tone",
         "filename": "payload",
         "filenameType": "msg",
@@ -146,7 +146,7 @@
         "y": 140,
         "wires": [
             [
-                "9481bac91b2b0a43"
+                "4f018d508ba8e18b"
             ]
         ]
     },
