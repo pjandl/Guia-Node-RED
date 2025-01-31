@@ -141,7 +141,7 @@
     {
         "id": "5014182572c4952a",
         "type": "sqlitedb",
-        "db": "flows/capitulo7/GNR_2.db",
+        "db": "fluxos/capitulo7/GNR_2.db",
         "mode": "RW"
     }
 ]

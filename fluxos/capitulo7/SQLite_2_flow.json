@@ -64,8 +64,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
-        "y": 100,
+        "x": 700,
+        "y": 120,
         "wires": []
     },
     {
@@ -149,7 +149,7 @@
     {
         "id": "d7edacdec49cef83",
         "type": "sqlitedb",
-        "db": "flows/capitulo7/gnr_1.db",
+        "db": "fluxos/capitulo7/gnr_1.db",
         "mode": "RWC"
     }
 ]

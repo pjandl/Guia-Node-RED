@@ -15,7 +15,7 @@
         "sqlquery": "msg.topic",
         "sql": "",
         "name": "",
-        "x": 370,
+        "x": 380,
         "y": 120,
         "wires": [
             [
@@ -129,7 +129,7 @@
     {
         "id": "238ee16b7853b23b",
         "type": "sqlitedb",
-        "db": "flows/capitulo7/chinook.db",
+        "db": "fluxos/capitulo7/chinook.db",
         "mode": "RO"
     }
 ]

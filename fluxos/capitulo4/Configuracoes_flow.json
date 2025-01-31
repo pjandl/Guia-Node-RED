@@ -15,7 +15,7 @@
         "props": [
             {
                 "p": "filename",
-                "v": "flows/capitulo4/node-red.yaml",
+                "v": "fluxos/capitulo4/node-red.yaml",
                 "vt": "str"
             }
         ],
