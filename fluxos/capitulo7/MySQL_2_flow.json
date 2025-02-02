@@ -1,0 +1,275 @@
+[
+    {
+        "id": "d8c6e54be24db6aa",
+        "type": "tab",
+        "label": "MySQL 2",
+        "disabled": false,
+        "info": "Fluxo que mostra o uso do nó mysql na \r\nexecução de diferentes comandos SQL em\r\num banco de dados MariaDB/MySQL \r\nacessível no mesmo host:\r\n\r\n - criação de tabela (create table);\r\n - remoção de tabela (drop table);\r\n - adição de registro (insert);\r\n - remoção de registros (delete);\r\n - consulta (select);\r\n - adição parametrizada de registro (insert).\r\n\r\nO nó mysql exige que os comandos SQL sejam \r\ndispostos na propriedade topic. \r\n\r\nAssim, alguns dos comandos são obtidos de \r\narquivos de texto, cujo nome é indicado na \r\npropriedade payload do nó inject \r\ncorrespondente. O arquivo é lido com um nó \r\nfile_in e seu conteúdo é dispostos na \r\npropriedade topic com uso de um nó change.\r\n\r\nOs demais são dispostos diretamente na\r\npropriedade topic da mensagem enviada pelo\r\nnó inject para o nó mysql.\r\n\r\nCaso os comandos SQL sejam parametrizados,\r\no objeto JSON que contém o valor dos \r\nparâmetros deve ser disposto na \r\npropriedade payload da mensagem.",
+        "env": []
+    },
+    {
+        "id": "8b41f177974a14d3",
+        "type": "inject",
+        "z": "d8c6e54be24db6aa",
+        "name": "Tabela [drop]",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iot-devices-drop-2.sql",
+        "payloadType": "str",
+        "x": 310,
+        "y": 40,
+        "wires": [
+            [
+                "c860fc63fc19774b"
+            ]
+        ]
+    },
+    {
+        "id": "c3570a56125e454e",
+        "type": "mysql",
+        "z": "d8c6e54be24db6aa",
+        "mydb": "3f5bae94d72464f3",
+        "name": "",
+        "x": 570,
+        "y": 220,
+        "wires": [
+            [
+                "dd04fc69de2950b9"
+            ]
+        ]
+    },
+    {
+        "id": "dd04fc69de2950b9",
+        "type": "debug",
+        "z": "d8c6e54be24db6aa",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c860fc63fc19774b",
+        "type": "file in",
+        "z": "d8c6e54be24db6aa",
+        "name": "Comando SQL",
+        "filename": "'fluxos/capitulo7/' & payload",
+        "filenameType": "jsonata",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 560,
+        "y": 120,
+        "wires": [
+            [
+                "c28eb05b8d023355"
+            ]
+        ]
+    },
+    {
+        "id": "34a5bd2c99f54887",
+        "type": "inject",
+        "z": "d8c6e54be24db6aa",
+        "name": "Tabela [create]",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iot-devices-create-2.sql",
+        "payloadType": "str",
+        "x": 320,
+        "y": 100,
+        "wires": [
+            [
+                "c860fc63fc19774b"
+            ]
+        ]
+    },
+    {
+        "id": "bf87633b56bf1561",
+        "type": "inject",
+        "z": "d8c6e54be24db6aa",
+        "name": "Tabela [insert]",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iot-devices-insert-2.sql",
+        "payloadType": "str",
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "c860fc63fc19774b"
+            ]
+        ]
+    },
+    {
+        "id": "c28eb05b8d023355",
+        "type": "change",
+        "z": "d8c6e54be24db6aa",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "topic",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 120,
+        "wires": [
+            [
+                "c3570a56125e454e"
+            ]
+        ]
+    },
+    {
+        "id": "4f50bd25f099b531",
+        "type": "inject",
+        "z": "d8c6e54be24db6aa",
+        "name": "Tabela[delete]",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iot-devices-delete-2.sql",
+        "payloadType": "str",
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "c860fc63fc19774b"
+            ]
+        ]
+    },
+    {
+        "id": "9bed08495764a147",
+        "type": "inject",
+        "z": "d8c6e54be24db6aa",
+        "name": "Tabela [insert+param]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "INSERT INTO `tb_data`(`dat_dev_id`, `dat_dev_date`, `dat_type`, `dat_value`)  VALUES (:a, :b, :c, :d);",
+        "payload": "{\"a\":4,\"b\":\"2025-02-02T15:14:13.000Z\",\"c\":2,\"d\":56.7}",
+        "payloadType": "json",
+        "x": 340,
+        "y": 340,
+        "wires": [
+            [
+                "c3570a56125e454e"
+            ]
+        ]
+    },
+    {
+        "id": "b4d658cb92131c51",
+        "type": "inject",
+        "z": "d8c6e54be24db6aa",
+        "name": "Tabela [select]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "select * from tb_data order by dat_dev_date",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 280,
+        "wires": [
+            [
+                "c3570a56125e454e"
+            ]
+        ]
+    },
+    {
+        "id": "1152769f165b4626",
+        "type": "comment",
+        "z": "d8c6e54be24db6aa",
+        "name": "SQL em arquivo",
+        "info": "",
+        "x": 100,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "a256837a431f6cba",
+        "type": "comment",
+        "z": "d8c6e54be24db6aa",
+        "name": "SQL no inject",
+        "info": "",
+        "x": 90,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3f5bae94d72464f3",
+        "type": "MySQLdatabase",
+        "name": "iot_devices",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "iot_devices",
+        "tz": "",
+        "charset": "UTF8"
+    }
+]

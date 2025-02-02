@@ -1,0 +1,108 @@
+[
+    {
+        "id": "3cf9333d36551bfe",
+        "type": "tab",
+        "label": "MySQL 1",
+        "disabled": false,
+        "info": "Fluxo que mostra o uso do nó mysql na \r\nrealização de consultas SQL em um banco de \r\ndados MariaDB/MySQL acessível no mesmo host.",
+        "env": []
+    },
+    {
+        "id": "d9739f93246c3fd6",
+        "type": "mysql",
+        "z": "3cf9333d36551bfe",
+        "mydb": "3f5bae94d72464f3",
+        "name": "",
+        "x": 310,
+        "y": 100,
+        "wires": [
+            [
+                "4ad2229f41502649"
+            ]
+        ]
+    },
+    {
+        "id": "c887bc73cad48a4b",
+        "type": "inject",
+        "z": "3cf9333d36551bfe",
+        "name": "Consulta",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM `tb_devices`",
+        "payload": "",
+        "payloadType": "str",
+        "x": 100,
+        "y": 100,
+        "wires": [
+            [
+                "d9739f93246c3fd6"
+            ]
+        ]
+    },
+    {
+        "id": "4ad2229f41502649",
+        "type": "debug",
+        "z": "3cf9333d36551bfe",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "18ff814ea555a56a",
+        "type": "inject",
+        "z": "3cf9333d36551bfe",
+        "name": "Tabelas",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SHOW TABLES",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 60,
+        "wires": [
+            [
+                "d9739f93246c3fd6"
+            ]
+        ]
+    },
+    {
+        "id": "3f5bae94d72464f3",
+        "type": "MySQLdatabase",
+        "name": "iot_devices",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "iot_devices",
+        "tz": "",
+        "charset": "UTF8"
+    }
+]
